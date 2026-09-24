@@ -2,7 +2,12 @@
 name: StepCue
 slug: stepcue
 area: BioMedical
-status: concept          # concept | design | prototype | tested | released
+trl: 2                   # Technology Readiness Level, see .kit/STANDARDS.md section 9
+trl_target: 3
+trl_evidence:
+  - docs/01-problem.md
+  - docs/02-concept.md
+  - docs/03-requirements.md
 shortlisted: false
 pitch: >-
   Pressure-sensing insole that detects the onset of a freeze and triggers a rhythmic haptic or audio cue.
