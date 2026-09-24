@@ -1,0 +1,17 @@
+# Card metadata consumed by https://amishchadha.com
+name: StepCue
+slug: stepcue
+area: BioMedical
+status: concept          # concept | design | prototype | tested | released
+shortlisted: false
+pitch: >-
+  Pressure-sensing insole that detects the onset of a freeze and triggers a rhythmic haptic or audio cue.
+problem: >-
+  Freezing of gait in Parkinson's causes falls, and cueing devices are expensive.
+budget_usd: 200
+difficulty: 3  # 1 easiest, 5 hardest
+hero_image: media/hero.png
+licenses:
+  hardware: CERN-OHL-S-2.0
+  software: MIT
+tags: [biomedical, open-hardware, cern-ohl-s]
