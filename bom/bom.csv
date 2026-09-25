@@ -1,15 +1,13 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-1 Top cover,1,"1.2 mm PU foam with textile face, cut from a thin commercial insole",Online retailer,6.00,buy,Indicative price
-2 Force-sensing resistors,5,"18 mm round FSR, 12.7 mm active area (Interlink FSR 402 class)",Electronics distributor,7.50,buy,Indicative price; DIY piezoresistive film is a cheaper option
-3 Sensor laminate,1,"Copper tape or printed traces on 125 um PET or polyimide film, insole outline",Self,15.00,make,Material cost only
-4 Flat flex tail and connector,1,"8-way 1.0 mm pitch FFC, about 80 mm, with two connectors",Electronics distributor,4.00,buy,Indicative price
-5 Coin vibration motor,1,"10 mm x 2.7 mm ERM, 3 V",Electronics distributor,3.00,buy,Indicative price
-6 Insole base,1,"3 mm EVA foam sheet with motor pocket",Online retailer,4.00,buy,Indicative price
-7 Heel pod base with clip,1,"3D-printed PETG tray and heel-counter clip",Self,1.50,make,Material cost only
-8 LiPo cell,1,"400 mAh 3.7 V protected, about 35 x 25 x 5 mm (502535 class)",Hobby electronics distributor,7.00,buy,Indicative price
-9 Controller module,1,"ESP32-C3 with BLE and LiPo charger, USB-C (Seeed XIAO ESP32C3 class)",Seeed Studio or distributor,5.00,buy,Indicative price; controller choice proposed awaiting Amish
-10 IMU breakout,1,"6-axis accelerometer and gyroscope (LSM6DSO class)",Electronics distributor,10.00,buy,Indicative price; proposed addition awaiting Amish
-11 Piezo buzzer,1,"12 mm, about 80 dB at 10 cm",Electronics distributor,1.00,buy,Indicative price
-12 Heel pod lid,1,"3D-printed PETG with pause button and LED window",Self,1.00,make,Material cost only
-13 Interface electronics,1,"8:1 analog multiplexer, FSR divider resistors, motor MOSFET and diode, tact switch, LED, perfboard",Electronics distributor,6.00,buy,Indicative price; not modeled
-14 Hardware and consumables,1,"Adhesive, heat-shrink, wire, M2 screws",Self,5.00,buy,Indicative price; not modeled
+1 Top cover,1,"1.2 mm PU foam with textile face, cut from a thin commercial insole",Online retailer (footwear insoles),6.00,buy,Indicative price
+2 Force-sensing resistors,5,"Interlink FSR 402: 18.3 mm round, 14.68 mm active, 0.46 mm thick, 0.2 to 20 N",Interlink Electronics web store or electronics distributor,2.99,buy,Interlink store list price checked 2026-09-25; shipping extra. Commercial FSRs decided by Amish 2026-09-25 (STC-DDR-001)
+3 Sensor laminate,1,"125 um PET or polyimide film with copper tape traces and adhesive, insole outline, 0.8 mm with FSRs",Self (materials from electronics and craft suppliers),15.00,make,Material cost; indicative
+4 Flat flex tail and connector,1,"8-way 1.0 mm pitch FFC, 12 mm wide, about 80 mm, with pod-end connector",Electronics distributor,4.00,buy,Indicative price
+5 Coin vibration motor,1,"10 x 2.7 mm ERM, 3 V, about 58 mA, 12200 rpm (Precision Microdrives 310-103 class)",Precision Microdrives or electronics distributor,3.00,buy,Indicative price; specifications from the 310-103 datasheet
+6 Insole base,1,"3 mm EVA foam sheet with motor pocket",Online retailer (craft foam),4.00,buy,Indicative price
+7 Heel pod base with clip,1,"3D-printed PETG tray, 42 x 34 x 13 mm, with clip over the heel counter",Self (FDM printer),1.50,make,Material about 7 g; price includes failed-print allowance
+8 LiPo cell,1,"400 mAh 3.7 V protected, about 35 x 25 x 5 mm (502535 class), JST-PH lead",Hobby electronics distributor (Adafruit 3898 is a 7.8 mm thick alternative),7.00,buy,Indicative price; Adafruit 3898 listed at $6.95 on 2026-09-25
+9 Controller module with IMU,1,"Seeed Studio XIAO nRF52840 Sense: nRF52840, LSM6DS3TR-C IMU, 6 analog inputs, BQ25101 charger, USB-C",Seeed Studio or distributor,15.99,buy,Indicative list price; confirm at order. Decided by Amish 2026-09-25 (STC-DDR-001)
+10 Interface board,1,"Perfboard about 20 x 12 mm: 5 x 1 kohm divider resistors, P-MOSFET divider switch, N-MOSFET and diode for the motor, 12 mm tact switch with cap",Electronics distributor,6.00,buy,Indicative price; replaces the TRL 2 multiplexer line
+11 Heel pod lid,1,"3D-printed PETG, 2 mm, with pause button and LED windows",Self (FDM printer),1.00,make,Material about 3.4 g; price includes failed-print allowance
+12 Hardware and consumables,1,"Adhesive, heat-shrink, silicone wire, M2 screws, foam pad",Electronics supplier,5.00,buy,Indicative allowance; not modeled

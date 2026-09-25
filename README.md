@@ -1,14 +1,14 @@
 # StepCue
 
-![TRL 2](https://img.shields.io/badge/TRL-2%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
+![TRL 2](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** BioMedical · **TRL:** 2 of 9 (concept formulated) · **Prototype budget:** about $200 USD · **Difficulty:** 3 of 5
+**Area:** BioMedical · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $200 USD · **Difficulty:** 3 of 5
 
 Pressure-sensing insole that detects the onset of a freeze and triggers a rhythmic haptic or audio cue.
 
 ![StepCue concept](media/hero.png)
 
-[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement (PDF)](cad/drawings/STC-DWG-001.pdf) · [Sizing calculations](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
 
 ## Problem
 
@@ -16,7 +16,7 @@ Freezing of gait in Parkinson's causes falls, and cueing devices are expensive.
 
 ## Concept
 
-A thin insole with five force-sensing resistors and a coin vibration motor connects by a flat flex tail to a small pod clipped over the heel of the shoe. The pod samples the pressure sensors and its own motion sensor 100 times a second, checks every 0.25 s for the pattern of a freeze, and pulses the motor (or an optional buzzer) at the wearer's own cadence until walking resumes. First-order estimates: about $106 in parts for one instrumented insole and about 3 days per charge. Detection speed and reliability are not yet demonstrated.
+A thin insole with five force-sensing resistors and a coin vibration motor connects by a flat flex tail to a small pod clipped over the heel of the shoe. The pod samples the pressure sensors and its own motion sensor 104 times a second, checks every 0.25 s for the pattern of a freeze, and pulses the motor at the wearer's own cadence until walking resumes; audio, where preferred, plays through a paired phone or earbuds. The TRL 3 calculations (STC-CAL-001) give $83.44 in parts for one instrumented insole and heel pod and 12.5 days per charge (7.4 conservative). Detection speed, reliability and nuisance cues are at risk and cannot be shown without labeled data.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
@@ -24,8 +24,8 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 - Force-sensing resistors (5)
 - Laminated sensor film with a flat flex tail
-- ESP32-C3 controller and 6-axis IMU in a heel pod
-- Coin vibration motor and optional piezo buzzer
+- nRF52840 controller module with built-in 6-axis IMU in a clip-on heel pod
+- Coin vibration motor under the arch
 - 400 mAh protected LiPo cell (in the pod, outside the shoe)
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
