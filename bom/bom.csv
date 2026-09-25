@@ -1,6 +1,15 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-FSR sensors (4 to 6),,,,,,
-Flex PCB or laminated film,,,,,,
-ESP32-C3,,,,,,
-Coin vibration motor,,,,,,
-LiPo cell,,,,,,
+1 Top cover,1,"1.2 mm PU foam with textile face, cut from a thin commercial insole",Online retailer,6.00,buy,Indicative price
+2 Force-sensing resistors,5,"18 mm round FSR, 12.7 mm active area (Interlink FSR 402 class)",Electronics distributor,7.50,buy,Indicative price; DIY piezoresistive film is a cheaper option
+3 Sensor laminate,1,"Copper tape or printed traces on 125 um PET or polyimide film, insole outline",Self,15.00,make,Material cost only
+4 Flat flex tail and connector,1,"8-way 1.0 mm pitch FFC, about 80 mm, with two connectors",Electronics distributor,4.00,buy,Indicative price
+5 Coin vibration motor,1,"10 mm x 2.7 mm ERM, 3 V",Electronics distributor,3.00,buy,Indicative price
+6 Insole base,1,"3 mm EVA foam sheet with motor pocket",Online retailer,4.00,buy,Indicative price
+7 Heel pod base with clip,1,"3D-printed PETG tray and heel-counter clip",Self,1.50,make,Material cost only
+8 LiPo cell,1,"400 mAh 3.7 V protected, about 35 x 25 x 5 mm (502535 class)",Hobby electronics distributor,7.00,buy,Indicative price
+9 Controller module,1,"ESP32-C3 with BLE and LiPo charger, USB-C (Seeed XIAO ESP32C3 class)",Seeed Studio or distributor,5.00,buy,Indicative price; controller choice proposed awaiting Amish
+10 IMU breakout,1,"6-axis accelerometer and gyroscope (LSM6DSO class)",Electronics distributor,10.00,buy,Indicative price; proposed addition awaiting Amish
+11 Piezo buzzer,1,"12 mm, about 80 dB at 10 cm",Electronics distributor,1.00,buy,Indicative price
+12 Heel pod lid,1,"3D-printed PETG with pause button and LED window",Self,1.00,make,Material cost only
+13 Interface electronics,1,"8:1 analog multiplexer, FSR divider resistors, motor MOSFET and diode, tact switch, LED, perfboard",Electronics distributor,6.00,buy,Indicative price; not modeled
+14 Hardware and consumables,1,"Adhesive, heat-shrink, wire, M2 screws",Self,5.00,buy,Indicative price; not modeled
