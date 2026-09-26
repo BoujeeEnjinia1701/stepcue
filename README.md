@@ -40,10 +40,10 @@ Cueing helps many people get moving again, but the devices that deliver it are c
 | --- | --- |
 | China | About [5.1 million people with Parkinson's in 2021](https://www.sciencedirect.com/science/article/pii/S2666606524000725) (Xu et al., 2024), so low-cost cueing could reach many people |
 | United Kingdom | Commercial cueing devices are listed at [£795 to £834](https://techguide.parkinsons.org.uk/catalogue/path-finder); an open design gives clinics and charities a cheaper research option |
-| United States | Large university gait-research base that could share one open detection platform and data format |
-| India | Fast-ageing population where imported assistive devices are costly relative to incomes |
+| United States | About 930,000 people aged 45 and over with Parkinson's in 2020, projected to reach about 1.24 million by 2030 ([Marras et al., *npj Parkinson's Disease*, 2018](https://www.nature.com/articles/s41531-018-0058-0)); research groups could share one open detection platform and data format |
+| India | The share of people aged 60 and over is projected to double to more than 20 % by 2050, and over 40 % of older people are in the poorest wealth quintile ([UNFPA India, 2023](https://india.unfpa.org/en/news/india-ageing-elderly-make-20-population-2050-unfpa-report)), so costly imported devices are out of reach for many |
 | Sub-Saharan Africa | The WHO notes limited access to Parkinson's medicine in [low- and middle-income countries](https://www.who.int/news-room/fact-sheets/detail/parkinson-disease); a locally buildable cue aid needs no specialist supply chain |
-| Brazil | Large public health system and ageing population, where locally built research devices can support rehabilitation studies |
+| Brazil | About 535,000 people aged 50 and over were estimated to live with Parkinson's disease in 2024, projected to reach about 1.25 million by 2060 ([Schlickmann et al., *Lancet Regional Health: Americas*, 2025](https://www.sciencedirect.com/science/article/pii/S2667193X25000560)); locally built research devices can support rehabilitation studies |
 
 ## What sparked the idea
 
@@ -90,6 +90,12 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 ## Documentation
 
 Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (STC-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `STC-PRC-001/v1.0`.
+
+## Credits
+
+Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+
+AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 
 ## Licenses
 

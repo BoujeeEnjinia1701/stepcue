@@ -162,3 +162,13 @@ None. No decision in this repo needs a change elsewhere.
 ### TRL 4
 
 TRL 4 remains on hold by Amish's instruction. No build, test, measurement, PCB, firmware or purchasing work was started. `trl: 3` and `trl_target: 3` are unchanged.
+
+## Session 2026-09-26: sources strengthened
+
+Three uncited rows in the README "By country or region" table were rewritten so each rests on a checked source. No budget change.
+
+- United States: uncited claim about a university gait-research base replaced with the estimate of about 930,000 people aged 45 and over with Parkinson's in 2020 and about 1.24 million by 2030 ([Marras et al., *npj Parkinson's Disease*, 2018](https://www.nature.com/articles/s41531-018-0058-0)).
+- India: uncited claim about device costs relative to incomes replaced with the UNFPA India Ageing Report 2023 figures (older share projected to double to over 20 % by 2050; over 40 % of older people in the poorest wealth quintile), citing [UNFPA India](https://india.unfpa.org/en/news/india-ageing-elderly-make-20-population-2050-unfpa-report).
+- Brazil: uncited claim about the public health system and ageing replaced with the ELSI-Brazil estimate of about 535,000 people with Parkinson's disease in 2024 and about 1.25 million by 2060 ([Schlickmann et al., 2025](https://www.sciencedirect.com/science/article/pii/S2667193X25000560)).
+- Kept and rechecked: WHO Parkinson's fact sheet, the freezing-of-gait meta-analysis (Springer), the Cochrane falls review and Xu et al. (2024) for China. The Parkinson's UK Technology Guide price pages and the PubMed record for Bächlin et al. (2010) could not be refetched this session (fetch restrictions and a PubMed security check); they were left unchanged.
+- `docs/01-problem.md` does not repeat the rewritten rows, so it was not changed.
