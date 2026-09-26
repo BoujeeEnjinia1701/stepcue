@@ -36,6 +36,8 @@ Requirements not met or not demonstrated:
 
 ### Proposed, awaiting Amish
 
+Status update: items 1 to 7 and 9 were decided by Amish on 2026-09-25, going with the recommendations (STC-DDR-001, D1 to D8). Item 8 has no recommendation and remains proposed, awaiting Amish.
+
 1. **One instrumented insole or a pair.** Options: (a) one insole on the side the wearer reports freezing most, about $106; (b) a pair, about $212, over budget. Recommendation: (a), since one-sided pressure data predicted freezes about as well as two-sided data in the literature.
 2. **Controller.** Options: (a) ESP32-C3 (XIAO ESP32C3 class) as scaffolded, plus a separate IMU and an analog multiplexer, because that module exposes too few ADC pins for five FSRs; (b) nRF52840 with built-in IMU (XIAO nRF52840 Sense class, about $16), which has six analog inputs, lower sleep current and matches TremorTrace, removing lines 10 and 13 in part. Recommendation: (b) for battery life and shared firmware; the concept and BOM are drawn with (a) so the pitch's key components are unchanged until you decide.
 3. **Add a 6-axis IMU to a "pressure-sensing insole".** Options: pressure only, or pressure plus IMU. Recommendation: pressure plus IMU (about $10 and 0.6 mA) so the firmware can use the freeze index; it does not change the pitch.
@@ -99,8 +101,8 @@ Decided by Amish, 2026-09-25: go with recommendation, for D1 one instrumented in
 ### Still awaiting Amish
 
 1. **O1. First co-design partner** (movement disorders clinic, physiotherapy practice or Parkinson's patient group). No recommendation; portfolio guidance is to pick partners per area later.
-2. **O2. R6 target for the audio route.** Options: keep 0.1 s and accept that audio misses it, or set 0.3 s for the audio route only. Recommendation: 0.3 s for audio, 0.1 s for haptic.
-3. **O3. R9 margin.** Options: keep the 3.0 mm EVA base (zero margin) or use 2.5 mm (4.5 mm stack) with a 0.4 mm motor relief in the laminate. Recommendation: 2.5 mm.
+2. **O2. R6 target for the audio route.** Options: keep 0.1 s and accept that audio misses it, or set 0.3 s for the audio route only. Recommendation: 0.3 s for audio, 0.1 s for haptic. Decided by Amish, 2026-09-25: go with recommendation (STC-DDR-002).
+3. **O3. R9 margin.** Options: keep the 3.0 mm EVA base (zero margin) or use 2.5 mm (4.5 mm stack) with a 0.4 mm motor relief in the laminate. Recommendation: 2.5 mm. Decided by Amish, 2026-09-25: go with recommendation (STC-DDR-002).
 
 ### Safety concerns
 
@@ -122,3 +124,41 @@ Decided by Amish, 2026-09-25: go with recommendation, for D1 one instrumented in
 TRL 4 is on hold by Amish's instruction; no TRL 4 work was started. Next, decide O1 to O3. The most useful paper work while TRL 4 is on hold is to identify an openly licensed, labeled plantar-pressure or foot-IMU freeze data set, since R3 to R5 depend on it.
 
 For reference only, TRL 4 would need: bench measurements of the FSR divider response and saturation, the motor's felt intensity through a sock and cover, the insole stack thickness, the pod mass and the clip retention; an offline replay of the detector on labeled data for R3 to R5; a measured power budget; and a lab test report (TST) with `environment: lab`, with ethics review before any use with people who freeze.
+
+## Session 2026-09-25: recommendations accepted
+
+Authority: on 2026-09-25 Amish wrote, in chat: "i accept all your recommendations, go with them across all repos." Every open item with a recommendation is now "Decided by Amish, 2026-09-25: go with recommendation". Items without a recommendation stay open. Recorded in `docs/decisions/0002-recommendations-accepted.md` (STC-DDR-002 v0.1).
+
+### Decisions applied and what changed
+
+- **O2, R6 audio-route target.** R6 split into 0.1 s for the haptic default and 0.3 s for phone or earbud audio. R6 moves from not met (audio 0.18 to 0.28 s against 0.1 s) to met (haptic 41 ms; audio 0.18 to 0.28 s against 0.3 s, 20 ms margin at worst on assumed latencies). Files: STC-REQ-001 v0.4, STC-CAL-001 v0.2 and `sizing.py`, STC-PRC-001 v0.4.
+- **O3, 2.5 mm EVA base.** `foam_t` 3.0 mm to 2.5 mm; insole stack 5.00 mm (zero margin) to 4.50 mm (4.3 to 4.7 mm with EVA tolerance). The 2.7 mm motor sits on a 0.2 mm EVA floor and stands 0.4 mm proud into a new relief in the laminate underside, leaving 0.4 mm of laminate over it. R9 moves from at risk to met. Files: `cad/src/model.py` with STEP and STL re-exported, STC-DWG-001 Rev P1 to P2, `bom/bom.csv` lines 3 and 6 (total unchanged at $83.44), media regenerated, STC-CAL-001 v0.2, STC-REQ-001 v0.4, STC-PRC-001 v0.4.
+- STC-DDR-001 v0.2 marks O2 and O3 as decided; the TRL 2 and TRL 3 sessions above are annotated.
+- Budget: `budget_usd` unchanged at $200 (no budget recommendation). Pitch and problem unchanged (no rewording recommendation).
+- README: "Concept rationale", "Burning platform", "Where it could be used" and "What sparked the idea" sections added before "Problem"; the inspiration point is the Daphnet wearable assistant (Bächlin et al., 2010). Media, drawings and PDFs were regenerated so the footer shows designmolecule.com.
+
+### Requirement status (STC-CAL-001 v0.2, Table 1)
+
+11 met, 0 not met, 3 at risk, 1 not verifiable at TRL 3 (was 9 met, 1 not met, 4 at risk, 1 not verifiable).
+
+- **Not met:** none.
+- **At risk: R3, R4, R5.** Detection delay, reliability and nuisance cues pull against one another (method floor 1.50 s, 2.50 s with the 5 confirming windows R5 needs; published pressure-only accuracy 77 to 80 % and 83 to 85 %). They need labeled data.
+- **Not verifiable at TRL 3: R12** (one-handed use).
+- **Met:** R1, R2, R6, R7, R8, R9, R10, R11, R13, R14, R15.
+
+### Still awaiting Amish
+
+1. **O1. First co-design partner** (movement disorders clinic, physiotherapy practice or Parkinson's patient group). No recommendation; proposed, awaiting Amish.
+
+### Cross-repo actions
+
+None. No decision in this repo needs a change elsewhere.
+
+### Safety concerns
+
+- Unchanged from the TRL 3 session. The thinner EVA base puts slightly less foam between the foot and the 0.46 mm FSRs; nothing rigid over 1 mm sits under the heel or metatarsal heads, and the skin check after early wear still applies.
+- The 0.3 s audio target rests on assumed BLE and phone audio latencies; audio is optional and the haptic default is unaffected.
+
+### TRL 4
+
+TRL 4 remains on hold by Amish's instruction. No build, test, measurement, PCB, firmware or purchasing work was started. `trl: 3` and `trl_target: 3` are unchanged.

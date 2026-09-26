@@ -187,9 +187,14 @@ for route, (ble, app, out) in audio.items():
     aud_lat[route] = ble + app + out
     print(f"Audio, {route}: BLE {ble * 1e3:.0f} + app {app * 1e3:.0f} + audio output {out * 1e3:.0f} ms = "
           f"{aud_lat[route] * 1e3:.0f} ms (all assumed)")
-result("R6", "Cue starts 0.1 s or less after detection",
+R6_HAPTIC, R6_AUDIO = 0.100, 0.300   # targets, s (audio-route target decided by Amish 2026-09-25, STC-DDR-002)
+print(f"Targets: haptic {R6_HAPTIC * 1e3:.0f} ms, audio route {R6_AUDIO * 1e3:.0f} ms; "
+      f"haptic margin {(R6_HAPTIC - t_fw - MOTOR_LAG) * 1e3:.0f} ms, audio margin "
+      f"{(R6_AUDIO - max(aud_lat.values())) * 1e3:.0f} ms at worst")
+r6_ok = (t_fw + MOTOR_LAG) <= R6_HAPTIC and max(aud_lat.values()) <= R6_AUDIO
+result("R6", "Cue starts 0.1 s or less after detection (haptic); 0.3 s or less (phone or earbud audio)",
        f"Haptic {(t_fw + MOTOR_LAG) * 1e3:.0f} ms (50 % amplitude {(t_fw + MOTOR_RISE) * 1e3:.0f} ms); phone audio "
-       f"{min(aud_lat.values()) * 1e3:.0f} to {max(aud_lat.values()) * 1e3:.0f} ms", "Not met (audio route); haptic met")
+       f"{min(aud_lat.values()) * 1e3:.0f} to {max(aud_lat.values()) * 1e3:.0f} ms", "Met" if r6_ok else "Not met")
 
 # ---------------------------------------------------------------- R7 cue delivery
 hr("R7: cue tempo, pulse and audio level")
@@ -231,12 +236,17 @@ hr("R9: insole stack")
 film = p["lam_t"] - p["fsr_t"]
 print(f"Stack {p['foam_t']:.1f} EVA + {p['lam_t']:.1f} laminate ({p['fsr_t']:.2f} FSR + {film:.2f} film and adhesive) + "
       f"{p['cover_t']:.1f} cover = {p['stack']:.2f} mm against 5.0 mm")
-print(f"EVA sheet tolerance +/-0.2 mm (assumed) gives {p['stack'] - 0.2:.1f} to {p['stack'] + 0.2:.1f} mm")
-print(f"With a 2.5 mm EVA base: {p['stack'] - 0.5:.2f} mm; motor {p['motor_t']} mm then needs a {p['motor_t'] - 2.5 + 0.2:.1f} mm "
-      "relief in the laminate or a thinner motor")
+print(f"EVA sheet tolerance +/-0.2 mm (assumed) gives {p['stack'] - 0.2:.1f} to {p['stack'] + 0.2:.1f} mm; "
+      f"margin {5.0 - p['stack']:.2f} mm nominal, {5.0 - p['stack'] - 0.2:.2f} mm worst case")
+print(f"Motor {p['motor_t']} mm on a {p['pocket_floor']} mm EVA floor stands {p['motor_relief']:.1f} mm proud of the "
+      f"{p['foam_t']:.1f} mm EVA; relief of {p['motor_relief']:.1f} mm in the laminate underside leaves "
+      f"{p['lam_t'] - p['motor_relief']:.1f} mm of laminate over it")
+print(f"Previous 3.0 mm EVA base gave {p['stack'] + 3.0 - p['foam_t']:.2f} mm, zero margin")
 print(f"Rigid parts under heel and metatarsal heads: FSR {p['fsr_t']:.2f} mm (limit 1 mm); motor under the arch only")
+r9_ok = p["stack"] + 0.2 <= 5.0
 result("R9", "Stack 5.0 mm or less; no rigid part over 1 mm under heel or MTH",
-       f"{p['stack']:.2f} mm, zero margin; FSR {p['fsr_t']:.2f} mm", "At risk")
+       f"{p['stack']:.2f} mm ({p['stack'] + 0.2:.1f} mm at +0.2 mm EVA tolerance); FSR {p['fsr_t']:.2f} mm",
+       "Met" if r9_ok else "At risk")
 
 hr("R10: heel pod size and mass")
 rho_petg = 1.27

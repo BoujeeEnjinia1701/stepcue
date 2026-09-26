@@ -3,7 +3,7 @@ doc_id: STC-CAL-001
 title: StepCue sizing calculations
 project: StepCue
 doc_type: Calculation note
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -13,11 +13,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: First-principles sizing for TRL 3 against STC-REQ-001 v0.3
+- version: "0.2"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002); R6 audio-route target of 0.3 s and 2.5 mm EVA base with motor relief; results table rerun against STC-REQ-001 v0.4
 ---
 
 # StepCue sizing calculations
 
-On paper, the design meets nine of the fifteen requirements in STC-REQ-001, including battery life (12.5 days nominal against 2 days), pod mass (25.2 g against 35 g) and cost ($83.44 against $200). One requirement is not met: the optional phone or earbud audio route starts a cue in about 0.18 to 0.28 s against the 0.1 s target (R6); the haptic default meets it at 41 ms. Four are at risk: detection delay, reliability and nuisance cues (R3 to R5) pull against one another and cannot be shown without labeled data, and the insole stack (R9) has no thickness margin. One (R12, one-handed use) cannot be verified at TRL 3.
+On paper, the design meets eleven of the fifteen requirements in STC-REQ-001 v0.4, including battery life (12.5 days nominal against 2 days), pod mass (25.2 g against 35 g), cost ($83.44 against $200), cue start (41 ms haptic against 0.1 s; 0.18 to 0.28 s for phone or earbud audio against the 0.3 s audio-route target decided on 2026-09-25) and insole thickness (4.50 mm against 5.0 mm with the 2.5 mm EVA base decided on the same date). None is not met. Three are at risk: detection delay, reliability and nuisance cues (R3 to R5) pull against one another and cannot be shown without labeled data. One (R12, one-handed use) cannot be verified at TRL 3.
 
 Every number in this note is printed by `docs/04-calcs/sizing.py` (run `python docs/04-calcs/sizing.py` from the repo root). Geometry and volumes come from `cad/src/model.py`; cost comes from `bom/bom.csv`. Values marked "assumed" have no source and are to be confirmed.
 
@@ -25,29 +29,29 @@ Every number in this note is printed by `docs/04-calcs/sizing.py` (run `python d
 
 ## 1. Results against requirements
 
-Table 1 lists every requirement, not met and at-risk items first. Status is one of met, not met, at risk, or not verifiable at TRL 3.
+Table 1 lists every requirement, not met and at-risk items first (none is not met). Status is one of met, not met, at risk, or not verifiable at TRL 3.
 
 Table 1. Requirement status at TRL 3.
 
 | ID | Target | Value from this note | Status |
 | --- | --- | --- | --- |
-| R6 | Cue starts 0.1 s or less after a detection | Haptic 41 ms to first vibration, 88 ms to 50 % amplitude; phone or earbud audio 180 to 280 ms (estimate) | Not met for the audio route; met for the haptic default |
 | R3 | Median delay from onset to detection 2 s or less | Method floor 1.50 s with one window; 2.00 s with 3 confirming windows; 2.50 s with 5 (synthetic) | At risk |
 | R4 | Episode sensitivity 80 % or more; window specificity 85 % or more | Published pressure-only results 77 to 80 % and 83 to 85 % | At risk |
 | R5 | 1 false cue or fewer per 10 min of walking | At 85 % window specificity, 5 confirming windows are needed even if windows were independent | At risk |
-| R9 | Stack 5.0 mm or less; no rigid part over 1 mm under heel or metatarsal heads | 5.00 mm, zero margin; FSR 0.46 mm | At risk |
 | R12 | One-handed clip; USB-C with the pod off; one large pause button | Clip clamp 7.5 N, hold 6.0 N against 2.5 N at heel strike, removal about 6 N; 10 mm button | Not verifiable at TRL 3 |
 | R1 | 5 or more pressure sites at 100 Hz or more | 5 FSRs at 104 Hz; four of five sites exceed the 20 N sensor range at peak load | Met |
 | R2 | 6-axis IMU at 100 Hz or more covering 0.5 to 8 Hz | LSM6DS3TR-C at 104 Hz; 0.50 Hz bins; Nyquist 52 Hz | Met |
+| R6 | Cue starts 0.1 s or less after a detection (haptic); 0.3 s or less (phone or earbud audio) | Haptic 41 ms to first vibration, 88 ms to 50 % amplitude; phone or earbud audio 180 to 280 ms (estimate) | Met |
 | R7 | Haptic at cadence, 60 to 130 per minute; audio 60 dB(A) or more at the ear | 203 Hz ERM pulses with a 247 ms quiet gap at 130 per minute; audio by earbuds; phone in a pocket about 61 dB | Met |
 | R8 | Stop within 3 regular steps or 15 s | 3 steps take 1.7 s; 15 s cap | Met (design review) |
+| R9 | Stack 5.0 mm or less; no rigid part over 1 mm under heel or metatarsal heads | 4.50 mm (4.7 mm at the upper EVA tolerance); FSR 0.46 mm | Met |
 | R10 | Pod 35 g or less; within 45 x 40 x 20 mm | 25.2 g; body 42 x 34 x 15 mm (20.3 mm deep including the clip over the counter) | Met |
 | R11 | 2 days or more at 16 h per day | 12.5 days nominal, 7.4 days conservative | Met |
 | R13 | Detection and cueing on the device; owner-only export; no cloud | No cloud path; phone used only for optional audio | Met (design review) |
 | R14 | $200 or less per unit (one instrumented insole and one heel pod); no custom rigid PCB | $83.44 over 12 priced lines; perfboard only | Met |
 | R15 | Protected cell outside the shoe; no exposed conductors; footwear-safe materials | Protected cell in the pod outside the counter; sensors laminated under the cover | Met (design review) |
 
-Counts: 9 met, 1 not met, 4 at risk, 1 not verifiable at TRL 3.
+Counts: 11 met, 0 not met, 3 at risk, 1 not verifiable at TRL 3. At v0.1 the counts were 9 met, 1 not met (R6 audio route), 4 at risk (R3, R4, R5, R9) and 1 not verifiable.
 
 ## 2. Pressure sensing (R1)
 
@@ -80,7 +84,7 @@ The three requirements therefore pull against each other: the confirmation that 
 Assumptions: firmware reaction under 1 ms from the decision to the MOSFET gate; motor figures from the Precision Microdrives 310-103 datasheet (lag 40 ms, rise to 50 % amplitude 87 ms, stop 115 ms, 58 mA, 12,200 rpm); for the audio route, 30 ms for a BLE connection event, 50 ms for the phone app, and 100 ms (phone speaker) or 200 ms (Bluetooth earbuds) of audio output latency (all assumed).
 
 - Haptic: 1 ms plus the 40 ms lag gives 41 ms to first vibration and 88 ms to half amplitude. Met.
-- Audio route: 180 ms through the phone speaker and 280 ms through earbuds. Not met. The latency delays only the first beat; later beats keep the cadence if the pod sends the beat timing rather than a trigger per beat. Item O2 in STC-DDR-001 proposes a separate 0.3 s target for the audio route.
+- Audio route: 180 ms through the phone speaker and 280 ms through earbuds, against the separate 0.3 s audio-route target that Amish decided on 2026-09-25 (item O2, STC-DDR-002). Met, with 20 ms to spare at worst; the audio latencies are assumed and are the first thing to measure at TRL 4. The latency delays only the first beat; later beats keep the cadence if the pod sends the beat timing rather than a trigger per beat.
 
 ## 6. Cue delivery (R7) and stop (R8)
 
@@ -91,7 +95,7 @@ Assumptions: firmware reaction under 1 ms from the decision to the MOSFET gate; 
 
 ## 7. Insole stack (R9)
 
-The stack in `cad/src/model.py` is 3.0 mm EVA plus a 0.8 mm laminate (0.46 mm FSR and 0.34 mm film and adhesive) plus a 1.2 mm cover, 5.00 mm against the 5.0 mm limit. With an assumed EVA sheet tolerance of 0.2 mm the stack is 4.8 to 5.2 mm, so R9 is at risk. A 2.5 mm EVA base gives 4.50 mm, but the 2.7 mm motor then needs a 0.4 mm relief in the laminate or a thinner motor (item O3 in STC-DDR-001). The only rigid parts under the heel and metatarsal heads are the 0.46 mm FSRs, under the 1 mm limit; the motor sits under the medial arch.
+The stack in `cad/src/model.py` is 2.5 mm EVA plus a 0.8 mm laminate (0.46 mm FSR and 0.34 mm film and adhesive) plus a 1.2 mm cover, 4.50 mm against the 5.0 mm limit. With an assumed EVA sheet tolerance of 0.2 mm the stack is 4.3 to 4.7 mm, a margin of 0.50 mm nominal and 0.30 mm at worst, so R9 is met. The 2.5 mm base was decided by Amish on 2026-09-25 (item O3, STC-DDR-002); at v0.1 the base was 3.0 mm and the stack 5.00 mm with zero margin. The 2.7 mm motor sits on a 0.2 mm EVA floor in its pocket, so it stands 0.4 mm proud of the EVA; a 0.4 mm relief in the underside of the laminate takes it, leaving 0.4 mm of laminate over the motor. The only rigid parts under the heel and metatarsal heads are the 0.46 mm FSRs, under the 1 mm limit; the motor sits under the medial arch.
 
 ## 8. Heel pod size and mass (R10)
 

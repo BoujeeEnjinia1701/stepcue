@@ -16,7 +16,8 @@ windows) and main dimensions. Not fabrication detail. PRELIMINARY, NOT FOR FABRI
 Decisions reflected (STC-DDR-001, 2026-09-25): one instrumented insole; XIAO nRF52840
 Sense class controller with built-in IMU (no separate IMU, no multiplexer); haptic cue
 by default with audio through a paired phone or earbuds (no piezo in the pod); commercial
-FSRs; electronics in a clip-on heel pod.
+FSRs; electronics in a clip-on heel pod. STC-DDR-002 (2026-09-25): 2.5 mm EVA base
+with a relief for the motor in the underside of the sensor laminate (item O3).
 """
 from pathlib import Path
 import numpy as np
@@ -25,7 +26,7 @@ import numpy as np
 PARAMS = {
     # Insole, about EU 42 (US men's 8.5)
     "insole_l": 272.0,        # heel to toe
-    "foam_t": 3.0,            # EVA base
+    "foam_t": 2.5,            # EVA base (2.5 mm by decision O3, STC-DDR-002; was 3.0)
     "lam_t": 0.8,             # sensor laminate: 0.2 film and adhesive plus 0.46 FSR, rounded up
     "cover_t": 1.2,           # PU foam top cover
     # Force-sensing resistors (Interlink FSR 402: 18.3 dia, 14.68 active, 0.46 thick)
@@ -92,6 +93,7 @@ def _slab(p, z0, t, grow=0.0):
 def derived(params=None):
     p = dict(params or PARAMS)
     p["stack"] = p["foam_t"] + p["lam_t"] + p["cover_t"]
+    p["motor_relief"] = max(0.0, p["pocket_floor"] + p["motor_t"] - p["foam_t"])   # into the laminate underside
     p["tail_top"] = p["counter_h"] + p["tail_t"]                      # tail lies over the counter top
     p["pod_top"] = p["tail_top"] + p["bridge_t"]
     p["pod_bot"] = p["pod_top"] - p["pod_z"]
@@ -124,7 +126,10 @@ def build_parts(params=None):
     tail_pad = Pos(4.0, 0, z_lam - T / 2) * Box(8.0, W, T)   # tail end bonded flush in the laminate
     laminate = laminate - tail_pad
     mx, my = p["motor_xy"]
-    motor = Pos(mx, my, f - p["motor_t"] / 2) * Cylinder(p["motor_d"] / 2, p["motor_t"])
+    motor = Pos(mx, my, p["pocket_floor"] + p["motor_t"] / 2) * Cylinder(p["motor_d"] / 2, p["motor_t"])
+    rel = p["motor_relief"]
+    if rel > 0:   # 5: relief in the laminate underside where the motor stands proud of the EVA
+        laminate = laminate - Pos(mx, my, f + rel / 2 - 0.05) * Cylinder(p["motor_d"] / 2 + p["pocket_clear"], rel + 0.1)
     pocket_h = f - p["pocket_floor"]
     foam = _slab(p, 0, f) - Pos(mx, my, p["pocket_floor"] + pocket_h / 2 + 0.05) * Cylinder(
         p["motor_d"] / 2 + p["pocket_clear"], pocket_h + 0.1)
@@ -217,7 +222,8 @@ def export(out=None):
 if __name__ == "__main__":
     parts = export()
     p = parts["_p"]
-    print(f"Insole stack {p['stack']:.2f} mm (foam {p['foam_t']}, laminate {p['lam_t']}, cover {p['cover_t']})")
+    print(f"Insole stack {p['stack']:.2f} mm (foam {p['foam_t']}, laminate {p['lam_t']}, cover {p['cover_t']}); "
+          f"motor relief {p['motor_relief']:.1f} mm in the laminate")
     print(f"Pod body {p['pod_z']:.1f} high x {p['pod_y']:.1f} wide x {p['pod_x']:.1f} deep mm; "
           f"with clip {p['pod_x'] + p['counter_t'] + p['tail_t'] + p['finger_t']:.1f} deep")
     for k in ("base", "lid", "foam", "laminate", "cover"):

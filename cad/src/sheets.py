@@ -1,7 +1,7 @@
 """StepCue drawing sheets.
 
 Run from the repo root:  python cad/src/sheets.py
-Builds STC-DWG-001 (general arrangement, Rev P1) in cad/drawings/ from cad/src/model.py.
+Builds STC-DWG-001 (general arrangement, Rev P2) in cad/drawings/ from cad/src/model.py.
 STC-DWG-010 is the concept blueprint sheet made by cad/src/concept_media.py.
 """
 import shutil
@@ -20,11 +20,12 @@ work = ROOT / "cad" / "drawings" / "_views"
 views = project_views(asm, work)
 pod_views = project_views(model.build(keys=model.POD_KEYS), work / "pod")
 
-s = Sheet(project="StepCue", title="Insole and heel pod general arrangement", dwg_no="STC-DWG-001", rev="P1",
+s = Sheet(project="StepCue", title="Insole and heel pod general arrangement", dwg_no="STC-DWG-001", rev="P2",
           author="Amish Chadha", date="2026-09-25", scale=0.5, concept=True,
           material="Insole EVA, PET laminate, PU cover; pod PETG; bought parts per bom/bom.csv. "
                    "PRELIMINARY, NOT FOR FABRICATION",
-          revisions=[("P1", "General arrangement for TRL 3 (STC-CAL-001)", "2026-09-25", "AC")])
+          revisions=[("P1", "General arrangement for TRL 3 (STC-CAL-001)", "2026-09-25", "AC"),
+                     ("P2", "2.5 mm EVA base, 0.4 mm motor relief (STC-DDR-002)", "2026-09-25", "AC")])
 s.add_ortho(views, ["front", "top", "right"])
 s.add_svg(pod_views["iso"], 276, 32, 140, 74, label="Heel pod, isometric", sublabel="Not to scale; shoe omitted")
 cx, cy, cz = p["cell"]
@@ -34,7 +35,7 @@ s.add_notes("Main dimensions (mm)", [
     f"+ {p['cover_t']:.1f} cover = {p['stack']:.1f}",
     f"FSRs {p['fsr_d']:.1f} dia x {p['fsr_t']:.2f}, 5 sites: heel, lat. midfoot, MTH1, MTH5, hallux",
     f"Motor {p['motor_d']:.0f} dia x {p['motor_t']:.1f} under medial arch at X {p['motor_xy'][0]:.0f}, "
-    f"Y {p['motor_xy'][1]:.0f}",
+    f"Y {p['motor_xy'][1]:.0f}; {p['motor_relief']:.1f} relief in laminate underside",
     f"Flex tail {p['tail_w']:.0f} wide x {p['tail_t']:.1f}, up inside the counter, over its top",
     f"Pod body {p['pod_z']:.0f} high x {p['pod_y']:.0f} wide x {p['pod_x']:.0f} deep; "
     f"wall {p['wall']:.1f}, lid {p['lid_t']:.1f}",

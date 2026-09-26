@@ -3,7 +3,7 @@ doc_id: STC-REQ-001
 title: StepCue requirements
 project: StepCue
 doc_type: Requirements
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -21,11 +21,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Targets adopted by Amish 2026-09-25 (STC-DDR-001); R7 audio route and R14 unit restated; TRL 3 status from STC-CAL-001
+- version: "0.4"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002); R6 audio-route target 0.3 s; R9 met with 2.5 mm EVA base
 ---
 
 # StepCue requirements
 
-Amish adopted targets R1 to R15 on 2026-09-25 (STC-DDR-001, decision D8). R7 and R14 are restated to match decisions D1 (one instrumented insole) and D5 (haptic cue by default, audio through a phone or earbuds). The status column gives the TRL 3 position from the calculation note STC-CAL-001; nothing here has been measured.
+Amish adopted targets R1 to R15 on 2026-09-25 (STC-DDR-001, decision D8). R7 and R14 are restated to match decisions D1 (one instrumented insole) and D5 (haptic cue by default, audio through a phone or earbuds). R6 is restated with a separate target for the audio route, decided by Amish on 2026-09-25 (STC-DDR-002, item O2). The status column gives the TRL 3 position from the calculation note STC-CAL-001 v0.2; nothing here has been measured.
 
 Table 1. Requirements and TRL 3 status.
 
@@ -36,10 +40,10 @@ Table 1. Requirements and TRL 3 status.
 | R3 | Detect freezes quickly | Median delay from freeze onset to detection 2 s or less | Offline replay of labeled data | **At risk.** Method floor 1.50 s with one window, 2.50 s with the confirmation R5 needs (synthetic) |
 | R4 | Detect freezes reliably | Episode sensitivity 80 % or more; window specificity 85 % or more | Offline replay of labeled data | **At risk.** Published pressure-only results are about 77 to 80 % and 83 to 85 % |
 | R5 | Avoid nuisance cues | 1 false cue or fewer per 10 min of ordinary walking | Offline replay; later supervised trial | **At risk.** Needs 5 or more confirming windows at 85 % specificity |
-| R6 | Start the cue promptly | Cue starts 0.1 s or less after a detection | Firmware timing calculation | Haptic met (41 ms). **Audio route not met** (about 0.18 to 0.28 s, estimate); see O2 in STC-DDR-001 |
+| R6 | Start the cue promptly | Haptic cue starts 0.1 s or less after a detection; audio through a phone or earbuds starts 0.3 s or less after a detection | Firmware timing calculation | Met: haptic 41 ms; audio route about 0.18 to 0.28 s (estimate, 20 ms margin at worst) |
 | R7 | Deliver a rhythmic cue the wearer can feel or hear | Haptic pulses at the wearer's baseline cadence (adjustable 60 to 130 per minute); where the wearer chooses audio, beeps of 60 dB(A) or more at the ear through a paired phone or earbuds | Calculation from datasheets; later bench measurement | Met: 203 Hz pulses stay distinct at 130 per minute; earbuds exceed 60 dB(A). Felt intensity through a sock cannot be shown on paper |
 | R8 | Stop cueing when walking resumes | Cue stops within 3 regular steps, or after 15 s at most | Firmware logic review | Met by design (3 steps about 1.7 s) |
-| R9 | Keep the shoe comfortable | Insole stack 5.0 mm or less; no rigid part thicker than 1 mm under the heel or metatarsal heads | Parametric model; later pressure mapping | **At risk.** 5.00 mm, zero margin; see O3 in STC-DDR-001 |
+| R9 | Keep the shoe comfortable | Insole stack 5.0 mm or less; no rigid part thicker than 1 mm under the heel or metatarsal heads | Parametric model; later pressure mapping | Met: 4.50 mm with the 2.5 mm EVA base (4.7 mm at the upper EVA tolerance); FSRs 0.46 mm |
 | R10 | Keep the heel pod light and small | Pod 35 g or less; body no larger than 45 x 40 x 20 mm | Parametric model; later weighing | Met: 25.2 g; 42 x 34 x 15 mm (20.3 mm deep including the clip) |
 | R11 | Run a full day and more | 2 days or more between charges at 16 h per day of wear | Power budget calculation | Met: 12.5 days nominal, 7.4 days conservative |
 | R12 | Usable with reduced dexterity | Pod clips on and off one-handed; USB-C charging with the pod off the shoe; one large button to pause cues | Design review; later user session | Not verifiable at TRL 3. Clip removal about 6 N by calculation; 10 mm button |
@@ -49,9 +53,9 @@ Table 1. Requirements and TRL 3 status.
 
 ## Requirements not met or at risk
 
-- **R6, audio route, not met.** A phone or earbud cue starts about 0.18 to 0.28 s after detection by estimate. The haptic default meets the target. A separate audio-route target is proposed (O2 in STC-DDR-001), awaiting Amish.
+No requirement is not met at TRL 3. R6 (audio route) and R9, listed here in STC-REQ-001 v0.3, are now met after Amish's 2026-09-25 decisions O2 and O3 (STC-DDR-002).
+
 - **R3, R4 and R5, at risk.** The confirmation that R5 needs pushes the detection delay past R3, and published pressure-only accuracy sits at the edge of R4. None can be verified without a labeled plantar-pressure data set.
-- **R9, at risk.** The stack has no thickness margin; a 2.5 mm EVA base is proposed (O3 in STC-DDR-001), awaiting Amish.
 - **R12, not verifiable at TRL 3.** One-handed use needs a session with users, which is TRL 4 or later and on hold.
 
 ## Assumptions

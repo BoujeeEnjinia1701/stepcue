@@ -3,7 +3,7 @@ doc_id: STC-DDR-001
 title: StepCue TRL 2 review decisions
 project: StepCue
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's 2026-09-25 decisions on the TRL 2 review points
+- version: "0.2"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002); O2 and O3 marked decided
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items D1 to D8); item O1 remains proposed; items O2 and O3 are new proposals raised at TRL 3
+- **Status:** accepted (items D1 to D8); items O2 and O3 decided by Amish on 2026-09-25 (recorded in STC-DDR-002); item O1 remains proposed
 
 ## Context
 
@@ -56,10 +60,10 @@ Items that remain open:
 
 - **O1.** First co-design partner: a movement disorders clinic, a physiotherapy practice or a Parkinson's patient group. No recommendation was made; portfolio guidance is that community designs pick co-design partners per area later. Proposed, awaiting Amish.
 
-New items raised at TRL 3 (not part of the 2026-09-25 decision):
+New items raised at TRL 3, later decided (STC-DDR-002):
 
-- **O2.** R6 for the audio route. The phone or earbud route of D5 starts a cue about 0.18 to 0.28 s after detection by estimate (STC-CAL-001, section 6), against the 0.1 s target. Options: (a) keep 0.1 s and accept that the audio route does not meet it; (b) set 0.3 s for the audio route only, keeping 0.1 s for the haptic default. Recommendation: (b), since latency shifts only the first beat and not the rhythm. Proposed, awaiting Amish.
-- **O3.** R9 thickness margin. The stack is exactly 5.0 mm. Options: (a) keep the 3.0 mm EVA base and accept zero margin; (b) use a 2.5 mm EVA base, giving 4.5 mm, with a 0.4 mm relief for the motor in the laminate. Recommendation: (b). Proposed, awaiting Amish.
+- **O2.** R6 for the audio route. The phone or earbud route of D5 starts a cue about 0.18 to 0.28 s after detection by estimate (STC-CAL-001, section 6), against the 0.1 s target. Options: (a) keep 0.1 s and accept that the audio route does not meet it; (b) set 0.3 s for the audio route only, keeping 0.1 s for the haptic default. Recommendation: (b), since latency shifts only the first beat and not the rhythm. Decided by Amish, 2026-09-25: go with recommendation (STC-DDR-002).
+- **O3.** R9 thickness margin. The stack is exactly 5.0 mm. Options: (a) keep the 3.0 mm EVA base and accept zero margin; (b) use a 2.5 mm EVA base, giving 4.5 mm, with a 0.4 mm relief for the motor in the laminate. Recommendation: (b). Decided by Amish, 2026-09-25: go with recommendation (STC-DDR-002).
 
 ## Consequences
 
