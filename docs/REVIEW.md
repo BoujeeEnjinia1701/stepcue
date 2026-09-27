@@ -172,3 +172,30 @@ Three uncited rows in the README "By country or region" table were rewritten so 
 - Brazil: uncited claim about the public health system and ageing replaced with the ELSI-Brazil estimate of about 535,000 people with Parkinson's disease in 2024 and about 1.25 million by 2060 ([Schlickmann et al., 2025](https://www.sciencedirect.com/science/article/pii/S2667193X25000560)).
 - Kept and rechecked: WHO Parkinson's fact sheet, the freezing-of-gait meta-analysis (Springer), the Cochrane falls review and Xu et al. (2024) for China. The Parkinson's UK Technology Guide price pages and the PubMed record for Bächlin et al. (2010) could not be refetched this session (fetch restrictions and a PubMed security check); they were left unchanged.
 - `docs/01-problem.md` does not repeat the rewritten rows, so it was not changed.
+
+## Session 2026-09-26: product appearance model and photoreal renders
+
+Amish chose this repo for the first batch of product renders on 2026-09-26. This session added an appearance model for photoreal renders; the renders themselves (`media/render-hero.png`, `media/render-exploded.png`) are produced separately from it.
+
+### What was done
+
+- New `cad/src/product_model.py`: `product_parts()` (24 parts: 9 shell, 13 internal, 2 context), `TITLE` and `RENDER_VIEWS` (hero from the front left and above at 30 deg, looking along the insole from the heel; exploded from the front left and above at 28 deg). It imports `PARAMS`, `derived()`, `build_parts()` and `outline()` from `model.py` and keeps every main dimension and interface: insole stack thicknesses, the five FSR sites, the motor pocket and laminate relief, the flex tail route over the counter, the pod envelope, clip bridge and finger, the USB-C, tail, pause button and LED openings, and the internal envelopes.
+- Appearance detail added:
+  - Insole: smooth spline outline through the model's outline points; light textile top cover with a filleted edge, printed teal rings over the five sensor sites and a field of forefoot perforations; FSRs with visible active areas; amber polyimide laminate with indicative copper traces from each sensor to the tail pad; dark EVA base.
+  - Heel pod: filleted graphite base with a parting-line groove, ribbed side grips and a filleted clip; light lid with a recessed bezel, teal pause button cap, lit status LED light pipe, a small raised cadence mark and four M2 lid screws; stadium USB-C opening.
+  - Internals dressed from the model envelopes: LiPo pouch with label, controller PCB with shield can and USB-C receptacle, perfboard with tact switch and MOSFETs, tail connector.
+  - Context (clay): a smooth shoe shell whose heel counter matches `counter_t` and `counter_h`, and a smooth left foot and lower leg standing beside it.
+- README hero image now points to `media/render-hero.png`, with an "Exploded render" link added to the links line.
+- Self-check previews made with the kit renderer in `/tmp/stepcue-prod/` (not part of the repo).
+
+### Where the appearance model differs from `model.py` (each proposed, awaiting Amish)
+
+1. **Insole lifted at the toe in the hero pose.** The insole layers are tilted 8 deg toe-up about the top of the heel so the sensor-site rings read in the render; the flex tail's bonded pad tilts with them while the run up the counter stays put. Proposed, awaiting Amish. Recommendation: keep for the render only; the fitted, flat state in `model.py` stays the reference.
+2. **Smooth insole outline.** The layers use a periodic spline through the same `outline()` points instead of the model's polygon. Proposed, awaiting Amish. Recommendation: adopt the spline in `model.py` at the next model revision; the change in area is negligible.
+3. **Features not in the model or BOM wording:** printed sensor-site rings and forefoot perforations in the top cover, copper trace routing, side grip ribs, a lid bezel recess, a raised cadence mark, and four M2 lid screws (M2 screws are already in BOM line 12). Proposed, awaiting Amish. Recommendation: treat all as appearance only; if the screws are kept, the lid needs bosses at TRL 4, which is on hold.
+4. **Pod split.** The lid and base share one filleted envelope with a 0.5 mm parting-line groove, so the pod reads as one product rather than a tray and a flat plate. Proposed, awaiting Amish. Recommendation: adopt the rounded envelope (5 mm corner radius) in the next model revision; it softens the edges near the wearer's heel, which the safety notes already ask for.
+5. **Hero context.** The clay shoe shell replaces the model's blocky `shoe_context()` for renders only, with a clay foot beside it for scale. Proposed, awaiting Amish. Recommendation: keep for renders; leave `shoe_context()` for the concept media.
+
+### Status
+
+This is an appearance model only, for renders: no tolerances, PCB layout or fabrication detail. `model.py`, the BOM and the controlled documents were not changed. `trl: 3` and `trl_target: 3` are unchanged, and TRL 4 remains on hold by Amish's instruction.
