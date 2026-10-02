@@ -8,13 +8,13 @@ Pressure-sensing insole that detects the onset of a freeze and triggers a rhythm
 
 ![StepCue: pressure-sensing insole with a clip-on heel cue pod, product render](media/render-hero.png)
 
-[Exploded render](media/render-exploded.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement (PDF)](cad/drawings/STC-DWG-001.pdf) · [Sizing calculations](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
+[Exploded render](media/render-exploded.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement (PDF)](cad/drawings/STC-DWG-001.pdf) · [Sizing calculations](docs/04-calcs/01-sizing.md) · [Prototype build plan](docs/05-build-plan.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
 Research systems that detect a freeze and cue only when it starts have mostly used accelerometers strapped to the shank, thigh or trunk, with the cue played through headphones. StepCue moves the sensing into the one place the wearer already puts on every day, the shoe: a thin insole reads how the foot is loading, a pod clipped to the heel counter holds the electronics and cell outside the shoe, and the default cue is a vibration under the arch, felt only by the wearer. Plantar pressure has predicted freezes in published work, and a foot-level design avoids straps and body-worn modules that people with reduced dexterity find hard to fit.
 
-The design is open and garage-buildable so that the detector, the cue timing and the data format can be inspected and changed by clinics, researchers and patient groups rather than hidden in a closed product. It uses commercial force-sensing resistors, copper-tape traces on film, a common Bluetooth microcontroller module and 3D-printed parts, about $83 in parts for one instrumented insole and pod, against commercial cueing devices listed at £795 to £834. It is a research and educational prototype, not a medical device.
+The design is open and garage-buildable so that the detector, the cue timing and the data format can be inspected and changed by clinics, researchers and patient groups rather than hidden in a closed product. It uses commercial force-sensing resistors, copper-tape traces on film, a common Bluetooth microcontroller module and 3D-printed parts, about $90 in parts for one instrumented insole and pod, against commercial cueing devices listed at £795 to £834. It is a research and educational prototype, not a medical device.
 
 ## Burning platform
 
@@ -69,6 +69,12 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
+## Building the prototype
+
+![StepCue prototype: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
+
+The [prototype build plan](docs/05-build-plan.md) (STC-BLD-001) shows, in pictures, how to make each of the thirteen components and put them together in fourteen steps; nothing has been built yet. The insole is four layers cut with a knife, with a hand-laid copper tape circuit on a polyimide film joining five pressure sensors and a coin motor to a flat flex tail; the heel pod is two 3D prints holding a bought controller module, a protected cell and a hand-wired interface board. Writing the plan made the design buildable: the sensor laminate became a carrier film and a foam spacer, the motor moved into a through-hole, the tail got a connector inside the pod, the clip was curved to the heel counter and the lid gained four screws (STC-DDR-003, open for Amish's review). Every picture is drawn from the model, and the model checks that each part touches what it should and clears what it should not. It is a bench prototype for research and education, not a medical device.
+
 ## Safety
 
 > This is a research and educational prototype. It is not a medical device, has not been cleared or approved by any regulator, and must not be used to diagnose, treat or monitor any person, or relied on to prevent falls. The heel pod holds a lithium cell: use a protected cell and never charge it while worn.
@@ -93,7 +99,7 @@ Controlled documents follow the portfolio [documentation standard](.kit/STANDARD
 
 ## Credits
 
-Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+Designed by Amish Chadha, with contributions from Dr. Geeti Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
 
 AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 

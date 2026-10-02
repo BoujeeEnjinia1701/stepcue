@@ -3,9 +3,9 @@ doc_id: STC-PRC-001
 title: StepCue design precis
 project: StepCue
 doc_type: Design precis
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,11 +25,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002); 2.5 mm EVA base with motor relief, audio-route cue target, STC-DWG-001 Rev P2
+- version: "0.5"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Design for construction (STC-DDR-003, draft); components, figures and key numbers updated from STC-CAL-001 v0.3; STC-DWG-001 Rev P3
 ---
 
 # StepCue design precis
 
-StepCue is a thin insole with five force-sensing resistors and a coin vibration motor, wired by a flat flex tail to a small pod that clips over the heel of the shoe. The pod reads the pressure sensors and its own motion sensor 104 times a second, decides every 0.25 s whether a freeze is starting, and if so pulses the motor at the wearer's own walking rhythm until steps resume. The calculation note STC-CAL-001 puts one unit at $83.44 in parts and 12.5 days per charge (7.4 days conservative). The insole stack is 4.50 mm against a 5.0 mm limit. Whether the detector is fast and reliable enough (R3 to R5) cannot be shown on paper and is the main risk; the calculations show those three requirements pull against one another.
+StepCue is a thin insole with five force-sensing resistors and a coin vibration motor, wired by a flat flex tail to a small pod that clips over the heel of the shoe. The pod reads the pressure sensors and its own motion sensor 104 times a second, decides every 0.25 s whether a freeze is starting, and if so pulses the motor at the wearer's own walking rhythm until steps resume. The calculation note STC-CAL-001 puts one unit at $89.94 in parts and 12.5 days per charge (7.4 days conservative). The insole stack is 4.50 mm against a 5.0 mm limit. Whether the detector is fast and reliable enough (R3 to R5) cannot be shown on paper and is the main risk; the calculations show those three requirements pull against one another.
 
 ![StepCue concept: instrumented insole in a shoe (grey), with the heel pod clipped over the heel counter](../media/hero.png)
 
@@ -55,15 +59,15 @@ Table 1. Main components. Numbers match `bom/bom.csv` and the exploded view.
 | --- | --- | --- | --- |
 | 1 | Top cover | 1.2 mm PU foam with textile face | Cut from a thin commercial insole |
 | 2 | Pressure sensors | 5 Interlink FSR 402 (18.3 mm round, 0.46 mm thick) | Commercial FSRs (decision D7) |
-| 3 | Sensor laminate | Copper tape traces on 125 µm PET or polyimide film, 0.8 mm with the FSRs, 0.4 mm relief under the motor | No custom rigid PCB (R14) |
-| 4 | Flat flex tail and connector | 8-way, 1.0 mm pitch, 12 mm wide | Runs up the inside of the heel counter under the clip finger and over its top into the pod |
-| 5 | Haptic actuator | 10 x 2.7 mm coin ERM (Precision Microdrives 310-103 class) under the medial arch | Low-load site; pocketed into the foam so nothing rigid sits under the heel or forefoot |
-| 6 | Insole base | 2.5 mm EVA foam with motor pocket | Decision O3 (STC-DDR-002); the motor stands 0.4 mm proud into the laminate relief |
-| 7 | Heel pod base with clip | 3D-printed PETG tray with a clip over the heel counter | One-handed fitting (R12) |
+| 3 | Sensor laminate | Two layers, 0.8 mm in all: copper tape traces on a 125 µm polyimide carrier film (0.3 mm), and a 0.5 mm closed-cell foam spacer with a window round each FSR | No custom rigid PCB (R14); the spacer foam is BOM line 14 (STC-DDR-003) |
+| 4 | Flat flex tail and connector | 8-way, 1.0 mm pitch, 9 mm wide; the insole end slit into strips soldered to pads, the pod end in a ZIF connector (BOM line 13) | Runs up the inside of the heel counter under the clip finger and over its top into the pod |
+| 5 | Haptic actuator | 10 x 2.7 mm coin ERM (Precision Microdrives 310-103 class) under the medial arch | Low-load site; in a hole through the base, bonded under the spacer, so nothing rigid sits under the heel or forefoot |
+| 6 | Insole base | 2.5 mm EVA foam with a motor through-hole | Decision O3 (STC-DDR-002); through-hole by STC-DDR-003 |
+| 7 | Heel pod base with clip | 3D-printed PETG tray, 37 mm wide, with a clip curved to the heel counter and four lid screw bosses | One-handed fitting (R12) |
 | 8 | Battery | 400 mAh protected LiPo, 502535 class | Outside the shoe |
-| 9 | Controller module with IMU | Seeed XIAO nRF52840 Sense class: nRF52840, LSM6DS3TR-C IMU, six analog inputs, charger, USB-C | Decision D2; USB-C faces up through the pod top |
+| 9 | Controller module with IMU | Seeed XIAO nRF52840 Sense class: nRF52840, LSM6DS3TR-C IMU, six analog inputs, charger, USB-C | Decision D2; USB-C faces down through a notch in the pod's bottom wall (STC-DDR-003) |
 | 10 | Interface board | Perfboard with the FSR dividers, a P-MOSFET that powers them only while sampling, the motor MOSFET and diode, and a 12 mm pause button | Replaces the TRL 2 multiplexer |
-| 11 | Heel pod lid | 3D-printed PETG | Pause button and status LED windows |
+| 11 | Heel pod lid | 3D-printed PETG, four M2 screws | Pause button cap and status LED windows |
 
 ![Exploded view with BOM callouts](../media/exploded.png)
 
@@ -71,9 +75,9 @@ Table 1. Main components. Numbers match `bom/bom.csv` and the exploded view.
 
 ![Section through the heel pod](../media/cutaway.png)
 
-*Figure 4. Section through the heel pod and flex tail (insole layers hidden). From the left: lid, controller module above the interface board, LiPo cell, and the shoe-side wall. The gap between the pod and the vertical flex tail is where the shoe's heel counter sits; the clip bridges over it and its finger presses the tail against the inside of the counter.*
+*Figure 4. Section through the heel pod and flex tail (insole layers hidden). From the left: lid, the interface board above the controller module, the LiPo cell, and the shoe-side wall. The gap between the pod and the vertical flex tail is where the shoe's heel counter sits; the clip bridges over it and its finger presses the tail against the inside of the counter.*
 
-The general arrangement drawing is [STC-DWG-001 Rev P2](../cad/drawings/STC-DWG-001.pdf); the parametric model is `cad/src/model.py`.
+The general arrangement drawing is [STC-DWG-001 Rev P3](../cad/drawings/STC-DWG-001.pdf); the parametric model is `cad/src/model.py`.
 
 ## Key numbers
 
@@ -94,10 +98,10 @@ Table 2. Key numbers.
 | Audio level | Earbuds above 60 dB(A); phone in a pocket about 61 dB | The removed piezo would have given 56.5 dB at 1.5 m, not the 60 dB estimated at TRL 2 | R7 met by earbuds |
 | Average current while worn | 1.45 mA nominal, 2.44 mA conservative | IMU 0.90 mA plus MCU, FSR dividers, BLE | |
 | Battery life | 12.5 days nominal, 7.4 days conservative | 306 mAh usable of 400 mAh | R11 met |
-| Insole stack | 4.50 mm (4.3 to 4.7 mm with EVA tolerance) | 2.5 mm EVA, 0.8 mm laminate with FSRs, 1.2 mm cover | R9 met, 0.5 mm margin |
-| Heel pod | 25.2 g; 42 x 34 x 15 mm (20.3 mm deep with the clip) | Model volumes and part masses | R10 met |
-| Clip | 7.5 N clamp; 6.0 N hold against 2.5 N at heel strike | PETG cantilever, 1.0 mm interference | R12 supports; not verifiable |
-| Parts cost | $83.44 per unit | `bom/bom.csv`, 12 priced lines | R14 met |
+| Insole stack | 4.50 mm (4.3 to 4.7 mm with EVA tolerance) | 2.5 mm EVA, 0.8 mm two-layer laminate round the FSRs, 1.2 mm cover | R9 met, 0.5 mm margin |
+| Heel pod | 27.2 g; 42 x 37 x 15 mm (20.3 mm deep with the clip) | Model volumes and part masses | R10 met |
+| Clip | 7.5 N clamp; 6.0 N hold against 2.7 N at heel strike | PETG cantilever, 1.0 mm interference | R12 supports; not verifiable |
+| Parts cost | $89.94 per unit, $110.06 under the $200 value-engineering target | `bom/bom.csv`, 14 priced lines | R14 met |
 
 ## Design choices
 
@@ -115,9 +119,11 @@ Amish decided the following on 2026-09-25, going with the recommendations of the
 Amish also decided, on 2026-09-25, the two items raised at TRL 3, again going with the recommendations (STC-DDR-002):
 
 - **Separate cue-start target for the audio route (O2).** R6 keeps 0.1 s for the haptic default and sets 0.3 s for phone or earbud audio, since latency shifts only the first beat and not the rhythm.
-- **2.5 mm EVA base (O3).** The stack falls from 5.00 mm to 4.50 mm. The 2.7 mm motor sits on a 0.2 mm EVA floor and stands 0.4 mm proud into a relief in the underside of the laminate.
+- **2.5 mm EVA base (O3).** The stack falls from 5.00 mm to 4.50 mm. At the time the 2.7 mm motor sat on a 0.2 mm EVA floor under a relief in the laminate; STC-DDR-003 replaces both with a through-hole, keeping the 4.50 mm stack.
 
-Still proposed, awaiting Amish: the first co-design partner (O1).
+On 2026-10-01, under Amish's 2026-09-30 instruction to make every design physically buildable, the model was made constructable (STC-DDR-003, draft, open for his review): a two-layer laminate, routed traces, a motor through-hole, a 9 mm tail with a connector in the pod, a curved clip, a 37 mm pod with a screwed lid and USB-C through its bottom wall. The prototype build plan is STC-BLD-001.
+
+Still proposed, awaiting Amish: the first co-design partner (O1) and the items in the design decisions register (STC-DEC-001).
 
 ## Safety
 

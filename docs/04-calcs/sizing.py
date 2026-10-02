@@ -233,14 +233,15 @@ parts = model.build_parts()
 p = parts["_p"]
 
 hr("R9: insole stack")
-film = p["lam_t"] - p["fsr_t"]
-print(f"Stack {p['foam_t']:.1f} EVA + {p['lam_t']:.1f} laminate ({p['fsr_t']:.2f} FSR + {film:.2f} film and adhesive) + "
-      f"{p['cover_t']:.1f} cover = {p['stack']:.2f} mm against 5.0 mm")
+carrier = p["film_t"] + p["trace_t"]
+print(f"Stack {p['foam_t']:.1f} EVA + {p['lam_t']:.1f} laminate ({carrier:.2f} carrier film with copper traces + "
+      f"{p['spacer_t']:.1f} foam spacer round the {p['fsr_t']:.2f} mm FSRs) + {p['cover_t']:.1f} cover = {p['stack']:.2f} mm "
+      f"against 5.0 mm")
 print(f"EVA sheet tolerance +/-0.2 mm (assumed) gives {p['stack'] - 0.2:.1f} to {p['stack'] + 0.2:.1f} mm; "
       f"margin {5.0 - p['stack']:.2f} mm nominal, {5.0 - p['stack'] - 0.2:.2f} mm worst case")
-print(f"Motor {p['motor_t']} mm on a {p['pocket_floor']} mm EVA floor stands {p['motor_relief']:.1f} mm proud of the "
-      f"{p['foam_t']:.1f} mm EVA; relief of {p['motor_relief']:.1f} mm in the laminate underside leaves "
-      f"{p['lam_t'] - p['motor_relief']:.1f} mm of laminate over it")
+print(f"Motor {p['motor_t']} mm in a through-hole in the {p['foam_t']:.1f} mm EVA and the carrier, bonded under the "
+      f"spacer: {p['motor_gap']:.1f} mm clear of the insole underside, {p['spacer_t'] + p['cover_t']:.1f} mm of foam over it "
+      f"(STC-DDR-003; was a 0.2 mm EVA floor and a 0.4 mm laminate relief)")
 print(f"Previous 3.0 mm EVA base gave {p['stack'] + 3.0 - p['foam_t']:.2f} mm, zero margin")
 print(f"Rigid parts under heel and metatarsal heads: FSR {p['fsr_t']:.2f} mm (limit 1 mm); motor under the arch only")
 r9_ok = p["stack"] + 0.2 <= 5.0
@@ -257,7 +258,8 @@ mass = {
     "LiPo cell, 400 mAh (Adafruit 3898 class, 8.2 g)": 8.2,
     "Controller module with IMU (assumed)": 3.0,
     "Interface board and pause button (assumed)": 2.0,
-    "Wire, tail connector, foam, screws (assumed)": 1.5,
+    "Tail connector on its adapter board (assumed)": 1.0,
+    "Button cap, four M2 screws, tapes, wire (assumed)": 1.5,
 }
 for k, v in mass.items():
     print(f"  {k:50s} {v:5.2f} g")
@@ -324,10 +326,12 @@ with open(ROOT / "bom" / "bom.csv", newline="") as fh:
 cost = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in bom)
 insole_items = ("1 ", "2 ", "3 ", "4 ", "5 ", "6 ")
 second = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in bom if r["item"].startswith(insole_items))
-print(f"{len(bom)} lines, all priced; total ${cost:.2f} per unit (one instrumented insole) against the $200 budget")
+print(f"{len(bom)} lines, all priced; estimated cost ${cost:.2f} per unit (one instrumented insole); value-engineering "
+      f"target $200 (a hypothetical control target, not a limit): ${200 - cost:.2f} under the target")
 print(f"A second instrumented insole with its own pod would add about ${cost:.2f} (pair ${2 * cost:.2f}); "
       f"insole parts alone ${second:.2f}")
-result("R14", "$200 or less with one instrumented insole; no custom rigid PCB", f"${cost:.2f}; perfboard only", "Met")
+result("R14", "$200 or less with one instrumented insole; no custom rigid PCB",
+       f"${cost:.2f} (${200 - cost:.2f} under the value-engineering target); perfboard only", "Met")
 result("R15", "Protected cell outside the shoe; no exposed conductors; footwear-safe materials",
        "Protected cell in the pod outside the counter; sensors laminated under the cover", "Met (design review)")
 

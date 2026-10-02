@@ -3,9 +3,9 @@ doc_id: STC-CAL-001
 title: StepCue sizing calculations
 project: StepCue
 doc_type: Calculation note
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,11 +17,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002); R6 audio-route target of 0.3 s and 2.5 mm EVA base with motor relief; results table rerun against STC-REQ-001 v0.4
+- version: "0.3"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Design for construction (STC-DDR-003, draft); two-layer laminate, motor through-hole, 37 mm pod, pod mass and cost rerun against STC-REQ-001 v0.5
 ---
 
 # StepCue sizing calculations
 
-On paper, the design meets eleven of the fifteen requirements in STC-REQ-001 v0.4, including battery life (12.5 days nominal against 2 days), pod mass (25.2 g against 35 g), cost ($83.44 against $200), cue start (41 ms haptic against 0.1 s; 0.18 to 0.28 s for phone or earbud audio against the 0.3 s audio-route target decided on 2026-09-25) and insole thickness (4.50 mm against 5.0 mm with the 2.5 mm EVA base decided on the same date). None is not met. Three are at risk: detection delay, reliability and nuisance cues (R3 to R5) pull against one another and cannot be shown without labeled data. One (R12, one-handed use) cannot be verified at TRL 3.
+On paper, the design meets eleven of the fifteen requirements in STC-REQ-001 v0.5, including battery life (12.5 days nominal against 2 days), pod mass (27.2 g against 35 g), cost ($89.94, $110.06 under the $200 value-engineering target), cue start (41 ms haptic against 0.1 s; 0.18 to 0.28 s for phone or earbud audio against the 0.3 s audio-route target decided on 2026-09-25) and insole thickness (4.50 mm against 5.0 mm with the 2.5 mm EVA base decided on the same date). None is not met. Three are at risk: detection delay, reliability and nuisance cues (R3 to R5) pull against one another and cannot be shown without labeled data. One (R12, one-handed use) cannot be verified at TRL 3.
 
 Every number in this note is printed by `docs/04-calcs/sizing.py` (run `python docs/04-calcs/sizing.py` from the repo root). Geometry and volumes come from `cad/src/model.py`; cost comes from `bom/bom.csv`. Values marked "assumed" have no source and are to be confirmed.
 
@@ -38,17 +42,17 @@ Table 1. Requirement status at TRL 3.
 | R3 | Median delay from onset to detection 2 s or less | Method floor 1.50 s with one window; 2.00 s with 3 confirming windows; 2.50 s with 5 (synthetic) | At risk |
 | R4 | Episode sensitivity 80 % or more; window specificity 85 % or more | Published pressure-only results 77 to 80 % and 83 to 85 % | At risk |
 | R5 | 1 false cue or fewer per 10 min of walking | At 85 % window specificity, 5 confirming windows are needed even if windows were independent | At risk |
-| R12 | One-handed clip; USB-C with the pod off; one large pause button | Clip clamp 7.5 N, hold 6.0 N against 2.5 N at heel strike, removal about 6 N; 10 mm button | Not verifiable at TRL 3 |
+| R12 | One-handed clip; USB-C with the pod off; one large pause button | Clip clamp 7.5 N, hold 6.0 N against 2.7 N at heel strike, removal about 6 N; 10 mm button | Not verifiable at TRL 3 |
 | R1 | 5 or more pressure sites at 100 Hz or more | 5 FSRs at 104 Hz; four of five sites exceed the 20 N sensor range at peak load | Met |
 | R2 | 6-axis IMU at 100 Hz or more covering 0.5 to 8 Hz | LSM6DS3TR-C at 104 Hz; 0.50 Hz bins; Nyquist 52 Hz | Met |
 | R6 | Cue starts 0.1 s or less after a detection (haptic); 0.3 s or less (phone or earbud audio) | Haptic 41 ms to first vibration, 88 ms to 50 % amplitude; phone or earbud audio 180 to 280 ms (estimate) | Met |
 | R7 | Haptic at cadence, 60 to 130 per minute; audio 60 dB(A) or more at the ear | 203 Hz ERM pulses with a 247 ms quiet gap at 130 per minute; audio by earbuds; phone in a pocket about 61 dB | Met |
 | R8 | Stop within 3 regular steps or 15 s | 3 steps take 1.7 s; 15 s cap | Met (design review) |
 | R9 | Stack 5.0 mm or less; no rigid part over 1 mm under heel or metatarsal heads | 4.50 mm (4.7 mm at the upper EVA tolerance); FSR 0.46 mm | Met |
-| R10 | Pod 35 g or less; within 45 x 40 x 20 mm | 25.2 g; body 42 x 34 x 15 mm (20.3 mm deep including the clip over the counter) | Met |
+| R10 | Pod 35 g or less; within 45 x 40 x 20 mm | 27.2 g; body 42 x 37 x 15 mm (20.3 mm deep including the clip over the counter) | Met |
 | R11 | 2 days or more at 16 h per day | 12.5 days nominal, 7.4 days conservative | Met |
 | R13 | Detection and cueing on the device; owner-only export; no cloud | No cloud path; phone used only for optional audio | Met (design review) |
-| R14 | $200 or less per unit (one instrumented insole and one heel pod); no custom rigid PCB | $83.44 over 12 priced lines; perfboard only | Met |
+| R14 | $200 or less per unit (one instrumented insole and one heel pod); no custom rigid PCB | $89.94 over 14 priced lines, $110.06 under the value-engineering target; perfboard only | Met |
 | R15 | Protected cell outside the shoe; no exposed conductors; footwear-safe materials | Protected cell in the pod outside the counter; sensors laminated under the cover | Met (design review) |
 
 Counts: 11 met, 0 not met, 3 at risk, 1 not verifiable at TRL 3. At v0.1 the counts were 9 met, 1 not met (R6 audio route), 4 at risk (R3, R4, R5, R9) and 1 not verifiable.
@@ -95,30 +99,31 @@ Assumptions: firmware reaction under 1 ms from the decision to the MOSFET gate; 
 
 ## 7. Insole stack (R9)
 
-The stack in `cad/src/model.py` is 2.5 mm EVA plus a 0.8 mm laminate (0.46 mm FSR and 0.34 mm film and adhesive) plus a 1.2 mm cover, 4.50 mm against the 5.0 mm limit. With an assumed EVA sheet tolerance of 0.2 mm the stack is 4.3 to 4.7 mm, a margin of 0.50 mm nominal and 0.30 mm at worst, so R9 is met. The 2.5 mm base was decided by Amish on 2026-09-25 (item O3, STC-DDR-002); at v0.1 the base was 3.0 mm and the stack 5.00 mm with zero margin. The 2.7 mm motor sits on a 0.2 mm EVA floor in its pocket, so it stands 0.4 mm proud of the EVA; a 0.4 mm relief in the underside of the laminate takes it, leaving 0.4 mm of laminate over the motor. The only rigid parts under the heel and metatarsal heads are the 0.46 mm FSRs, under the 1 mm limit; the motor sits under the medial arch.
+The stack in `cad/src/model.py` is 2.5 mm EVA plus a 0.8 mm laminate plus a 1.2 mm cover, 4.50 mm against the 5.0 mm limit. Since STC-DDR-003 (draft) the laminate is two layers that can be bought and cut: a 0.30 mm carrier (125 µm polyimide film with its transfer adhesive and copper tape traces) and a 0.5 mm closed-cell foam spacer with a window round each 0.46 mm FSR. With an assumed EVA sheet tolerance of 0.2 mm the stack is 4.3 to 4.7 mm, a margin of 0.50 mm nominal and 0.30 mm at worst, so R9 is met. The 2.5 mm base was decided by Amish on 2026-09-25 (item O3, STC-DDR-002); at v0.1 the base was 3.0 mm and the stack 5.00 mm with zero margin. The 2.7 mm motor now stands in a hole through the EVA and the carrier and is bonded to the underside of the spacer, 0.1 mm clear of the insole underside, with 1.7 mm of foam (spacer and cover) over it; at v0.2 it sat on a 0.2 mm EVA floor under a 0.4 mm relief in the laminate, neither of which can be cut by hand. The only rigid parts under the heel and metatarsal heads are the 0.46 mm FSRs, under the 1 mm limit; the motor sits under the medial arch.
 
 ## 8. Heel pod size and mass (R10)
 
-The pod body is 42 mm high, 34 mm wide and 15 mm deep, inside the 45 x 40 x 20 mm limit. Including the clip, which straddles the 3.5 mm heel counter, it is 20.3 mm deep. Removing the piezo and the separate IMU made the pod 4 mm thinner and 4 mm narrower than the TRL 2 massing model (44 x 38 x 19 mm).
+The pod body is 42 mm high, 37 mm wide and 15 mm deep, inside the 45 x 40 x 20 mm limit. Including the clip, which straddles the 3.5 mm heel counter, it is 20.3 mm deep. It was 34 mm wide at v0.2; STC-DDR-003 widened it by 3 mm so four lid screw bosses clear the cell, and added a tail connector, a button cap, screws and tapes, which raise the mass by 2.0 g. Removing the piezo and the separate IMU had made the pod 4 mm thinner than the TRL 2 massing model (44 x 38 x 19 mm).
 
 Table 2. Heel pod mass.
 
 | Part | Mass, g | Basis |
 | --- | --- | --- |
-| Heel pod base with clip, PETG | 7.06 | Model volume at 1.27 g/cm³ |
-| Heel pod lid, PETG | 3.41 | Model volume at 1.27 g/cm³ |
+| Heel pod base with clip, PETG | 7.79 | Model volume at 1.27 g/cm³ |
+| Heel pod lid, PETG | 3.68 | Model volume at 1.27 g/cm³ |
 | LiPo cell, 400 mAh | 8.20 | Adafruit 3898 listing, same capacity class |
 | Controller module with IMU | 3.00 | Assumed |
 | Interface board and pause button | 2.00 | Assumed |
-| Wire, tail connector, foam, screws | 1.50 | Assumed |
-| **Total** | **25.2** | |
+| Tail connector on its adapter board | 1.00 | Assumed |
+| Button cap, four M2 screws, tapes, wire | 1.50 | Assumed |
+| **Total** | **27.2** | |
 
 ## 9. Clip over the heel counter (R12)
 
 Assumptions: PETG modulus 2,000 MPa; friction coefficient 0.4 between PETG and shoe lining; peak heel-strike acceleration at the counter 10 g (all assumed).
 
-- The finger inside the counter is 26 mm wide, 1.5 mm thick and 18 mm long, with a 1.0 mm interference between its free-state gap (2.8 mm) and the fitted counter plus tail (3.8 mm). As a cantilever it clamps with 7.5 N at 0.69 % bending strain, well within what PETG tolerates for a snap fit.
-- Friction on both faces holds 6.0 N against 2.5 N of pod inertia at heel strike, a margin of 2.4. Removal takes about 6 N, within one-handed reach. Whether people with reduced dexterity can fit it cannot be shown on paper.
+- The finger inside the counter is curved to the counter (32 mm inside radius at the heel; STC-DDR-003), 26 mm wide, 1.5 mm thick and 18 mm long, with a 1.0 mm interference between its free-state gap (2.8 mm) and the fitted counter plus tail (3.8 mm). As a cantilever it clamps with 7.5 N at 0.69 % bending strain, well within what PETG tolerates for a snap fit.
+- Friction on both faces holds 6.0 N against 2.7 N of pod inertia at heel strike, a margin of 2.3. Removal takes about 6 N, within one-handed reach. Whether people with reduced dexterity can fit it cannot be shown on paper.
 - The finger presses the flex tail against the inside of the counter, which also keeps the tail from moving. The finger sits against the wearer's heel above the insole, so its edges need rounding and its fit needs checking on skin at a later stage.
 
 ## 10. Power budget (R11)
@@ -143,7 +148,7 @@ The motor adds 0.85 mAh per day for 300 s of cueing (nominal) and 1.35 mAh for 4
 
 ## 11. Cost (R14)
 
-`bom/bom.csv` has 12 priced lines totaling $83.44 for one unit, well under the $200 budget. A second instrumented insole with its own pod would add about the same again, so even a pair ($166.88) would fit, although decision D1 keeps the first build to one insole. The FSR price ($2.99 each at the Interlink store) and the Adafruit 3898 cell price were checked on 2026-09-25; the other prices are indicative. The TRL 2 total of about $106 fell mainly because the FSR price was lower than assumed and the IMU breakout and multiplexer were removed.
+Value-engineering target: USD 200 (`budget_usd`, a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 89.94 from 14 priced lines in `bom/bom.csv` (USD 110.06 under the target). At v0.2 it was USD 83.44 over 12 lines; STC-DDR-003 respecified the laminate and hardware lines, repriced line 12 (USD 5.00 to USD 6.00) and added the tail connector (line 13, USD 2.50) and the spacer foam (line 14, USD 3.00). A second instrumented insole with its own pod would add about the same again, so even a pair ($179.88) would stay under the target, although decision D1 keeps the first build to one insole. The FSR price ($2.99 each at the Interlink store) and the Adafruit 3898 cell price were checked on 2026-09-25; the other prices are indicative. The TRL 2 total of about $106 fell mainly because the FSR price was lower than assumed and the IMU breakout and multiplexer were removed.
 
 ## 12. Sources
 

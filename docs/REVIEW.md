@@ -205,3 +205,60 @@ This is an appearance model only, for renders: no tolerances, PCB layout or fabr
 - Kit 1.5.0 synced: STANDARDS v1.5 (sections 12 to 15: product renders, storefront images and image quality, public release, authorship and signing), `.kit/cards.py`, `.kit/image_qc.py`, `.kit/release_gate.py`, issue templates, and the `/render-product` and `/release` commands. `CLAUDE.md` now matches `.kit/CLAUDE.md`.
 - Every `media/render-*.png` recaptioned from its original render with the new layout: the title, concept label and repository sit in a band above the render and the view note in a band below it, each line wrapped to the image width, so no text overlaps other text or the render or runs off the image. `media/card.png` and `media/social-preview.png` regenerated with the same rules.
 - `python .kit/image_qc.py` and `python .kit/release_gate.py` pass. trl stays 3.
+
+## Session 2026-10-01: kit 1.7.0, design for construction and illustrated build plan (BLD-001)
+
+Run under the build plan rollout brief (kit 1.7.0) and `/build-plan` steps 1 to 5, with Amish's instruction of 2026-09-30 to "fix the design assumptions to match and be physically feasible as you draw the illustrations", his 2026-09-30 rule that open decisions go in a separate register, and his 2026-10-01 rule that `budget_usd` is a value-engineering target. Commit and push were skipped by instruction (cloud copy, no git). TRL cap respected: no PCB layout, firmware, purchasing list, test plan or build log; the interface circuit is perfboard wired at block level.
+
+### What was done
+
+- Kit 1.7.0 installed (`.kit/`, `.claude/commands/`); `CLAUDE.md` matches `.kit/CLAUDE.md`.
+- `cad/src/model.py`: made constructable (below) and given 471 build123d constructability checks (`python cad/src/model.py --check`: no overlaps, every part touches what holds it, required gaps open, traces clear of each other, the sensor discs and the edge, each pod part slides into the open tray in order, print and size limits). All 471 pass. The export now writes single parts before the assembly compounds, which had stopped the single-part STEP files being written.
+- `cad/step/` and `cad/stl/`: assembly, heel pod and single parts (base, lid, foam, film, spacer, cover, laminate) regenerated.
+- `cad/drawings/STC-DWG-001` Rev P3 (general arrangement), parts list now including lines 12 to 14.
+- `media/`: hero, cutaway, exploded (pod parts now pulled clear behind the heel), flow, concept blueprint, `model.glb` and `viewer.html` regenerated from the constructable model (`cad/src/concept_media.py`, which can now render one image per process; key figure now about $90).
+- `cad/src/build_plan_media.py` (new, uses `.kit/build_views.py`): overview, seven making sketches (`cad/drawings/STC-DWG-101` to `107`), the insole circuit layout, block wiring, eight joint close-ups and fourteen assembly step pictures in `docs/05-build-plan/`.
+- `docs/05-build-plan.md` (STC-BLD-001 v0.1, new): plain-English plan by component in build order, with first checks, safety stops S1 to S7, tools, and sources. No open decisions in it.
+- `docs/06-design-decisions.md` (STC-DEC-001 v0.1, new): ten open decisions, six items to confirm when parts are bought, a value engineering section and the decisions made with Amish's words.
+- `docs/decisions/0003-design-for-construction.md` (STC-DDR-003 v0.1, draft): every change, with the reason.
+- `docs/04-calcs/01-sizing.md` (STC-CAL-001 v0.3), `docs/03-requirements.md` (STC-REQ-001 v0.5), `docs/02-concept.md` (STC-PRC-001 v0.5), `bom/bom.csv`, `bom/bom-notes.md`: stack description, pod size and mass, cost and components updated.
+- `project.yaml`: `design_state: constructable`; STC-DDR-003, STC-BLD-001 and STC-DEC-001 added to `trl_evidence`. `budget_usd` unchanged.
+- `README.md`: "Prototype build plan" link and a "Building the prototype" section before "Safety"; parts figure now about $90. Credits and `CONTRIBUTORS.md` unchanged (Dr. Geeti Chadha kept as contributor).
+
+### Design changes made for construction (STC-DDR-003, draft, open for Amish's review)
+
+1. Sensor laminate: one solid 0.8 mm sheet became a 0.3 mm polyimide carrier with copper tape traces under a 0.5 mm closed-cell foam spacer with windows; stack unchanged at 4.50 mm.
+2. Pressure sensors: tails and two solder tabs added, soldered to tab pads on the carrier; tails pointed to suit the routing.
+3. Circuit: eight routed copper tape traces (0.8 mm apart, 1.5 mm inside the edge) with one insulated crossover on a polyimide patch.
+4. Motor: 0.2 mm foam floor and laminate relief replaced by a through-hole in the base and carrier; motor bonded under the spacer, 1.7 mm of foam over it.
+5. Flex tail: 12 mm became 9 mm (a real 8-way cable); its insole end slit into strips soldered to pads 4 mm apart.
+6. Clip finger and bridge curved to the 32 mm heel counter; the flat finger and tail had cut into the counter.
+7. Tail connector (ZIF, new BOM line 13) on top of the interface board; board moved above the module; tail enters through a slot under the roof.
+8. Controller module turned USB-C down, the receptacle in a notch in the bottom wall.
+9. Cell, module and interface board held by double-sided tapes.
+10. Lid held by four M2 thread-forming screws into corner bosses; pod widened from 34 to 37 mm.
+11. Pause button cap 9.4 mm, standing 1 mm out of the lid.
+12. Heel notch in the spacer and cover for the tail.
+
+### Key results
+
+- Requirement status unchanged: 11 met, none not met, 3 at risk (R3, R4, R5), 1 not verifiable at TRL 3 (R12).
+- Pod 27.2 g (was 25.2 g) against 35 g; body 42 x 37 x 15 mm against 45 x 40 x 20 mm. Clip hold 6.0 N against 2.7 N at heel strike.
+- Value-engineering target: USD 200. Estimated cost of the constructable design: USD 89.94 (USD 110.06 under the target); was USD 83.44.
+
+### Decisions proposed and awaiting Amish
+
+All in `docs/06-design-decisions.md`: acceptance of STC-DDR-003 P1 to P12, charging with the insole and pod together (A1), 37 mm pod with screws (A2), copper traces across the flexing forefoot (A3), the first co-design partner (O1) and the five appearance-model items of 2026-09-26.
+
+### Safety
+
+- The build plan keeps the cell out of the pod until safety stops S2 and S3, never charges it while worn or wet, and limits any wear to the builder, standing and seated. Wear trials with people who freeze belong to later, supervised work with ethics review. StepCue is a research and educational prototype, not a medical device.
+- New hazards from construction: soldering on thin film (burns, fumes) and spray contact adhesive (flammable fumes); both are covered by stop S1 and the workspace notes.
+
+### Stale media
+
+- `media/render-hero.png`, `media/render-exploded.png`, `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the 34 mm pod with USB-C on top, the flat clip and the 12 mm tail. They are made on Amish's Mac and were not regenerated here.
+
+### Recommended next step
+
+Amish reviews STC-DDR-003 and the register. TRL 4 (building and testing to the plan) stays on hold until he says otherwise.

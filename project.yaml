@@ -5,6 +5,7 @@ repo: BoujeeEnjinia1701/stepcue         # GitHub repository, shown on every draw
 area: BioMedical
 trl: 3                   # Technology Readiness Level, see .kit/STANDARDS.md section 9
 trl_target: 3
+design_state: constructable   # concept or constructable, see .kit/STANDARDS.md section 18
 trl_evidence:
   - docs/01-problem.md
   - docs/02-concept.md
@@ -13,6 +14,9 @@ trl_evidence:
   - docs/decisions/0002-recommendations-accepted.md
   - docs/04-calcs/01-sizing.md
   - docs/04-calcs/sizing.py
+  - docs/decisions/0003-design-for-construction.md
+  - docs/05-build-plan.md
+  - docs/06-design-decisions.md
   - cad/src/model.py
   - cad/step/stepcue-assembly.step
   - cad/drawings/STC-DWG-001.pdf
