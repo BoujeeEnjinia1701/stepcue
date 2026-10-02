@@ -3,9 +3,9 @@ doc_id: STC-DDR-001
 title: StepCue TRL 2 review decisions
 project: StepCue
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,12 +17,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002); O2 and O3 marked decided
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "O1 decided by Amish as recommended (STC-DEC-001)"
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items D1 to D8); items O2 and O3 decided by Amish on 2026-09-25 (recorded in STC-DDR-002); item O1 remains proposed
+- **Status:** accepted (items D1 to D8); items O2 and O3 decided by Amish on 2026-09-25 (recorded in STC-DDR-002); item O1 decided by Amish on 2026-10-02: "i approve your recommendations for all 555 open decisions." (STC-DEC-001)
 
 ## Context
 
@@ -56,9 +60,9 @@ Table 1. Items with a recommendation.
 
 Budget and pitch: the TRL 2 review recommended keeping `budget_usd` at $200 with the budget defined as one unit of one instrumented insole and one heel pod. That definition is written into R14. The review made no recommendation to reword the pitch or problem lines, so they are unchanged.
 
-Items that remain open:
+Items left open at TRL 2, since decided:
 
-- **O1.** First co-design partner: a movement disorders clinic, a physiotherapy practice or a Parkinson's patient group. No recommendation was made; portfolio guidance is that community designs pick co-design partners per area later. Proposed, awaiting Amish.
+- **O1.** First co-design partner: a movement disorders clinic, a physiotherapy practice or a Parkinson's patient group. No recommendation was made; portfolio guidance is that community designs pick co-design partners per area later. Decided by Amish, 2026-10-02, as later recommended: a Parkinson's patient group, recruited through a local support group affiliated with the Parkinson's Foundation (the first candidate to approach), with a physiotherapy practice brought in for the first supervised user session (STC-DEC-001).
 
 New items raised at TRL 3, later decided (STC-DDR-002):
 

@@ -3,9 +3,9 @@ doc_id: STC-DDR-002
 title: StepCue recommendations accepted
 project: StepCue
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's 2026-09-25 acceptance of all open recommendations
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "O1 decided by Amish as recommended (STC-DEC-001)"
 ---
 
 # 0002: Recommendations accepted
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items O2 and O3); item O1 remains proposed
+- **Status:** accepted (items O2 and O3); item O1 decided by Amish on 2026-10-02: "i approve your recommendations for all 555 open decisions." (STC-DEC-001)
 
 ## Context
 
@@ -39,9 +43,9 @@ Table 1. Open items at the start of this decision.
 - **O2.** Decided by Amish, 2026-09-25: go with recommendation. R6 now reads: haptic cue 0.1 s or less after a detection; audio through a phone or earbuds 0.3 s or less. Latency shifts only the first beat, since the pod sends beat timing rather than a trigger per beat.
 - **O3.** Decided by Amish, 2026-09-25: go with recommendation. The insole base is 2.5 mm EVA. The 2.7 mm coin motor sits on a 0.2 mm EVA floor in its pocket and stands 0.4 mm proud into a relief in the underside of the sensor laminate, leaving 0.4 mm of laminate over it.
 
-Items still open:
+Items left open on 2026-09-25, since decided:
 
-- **O1.** First co-design partner. No recommendation was made. Proposed, awaiting Amish.
+- **O1.** First co-design partner. No recommendation was made on 2026-09-25. Decided by Amish, 2026-10-02, as later recommended: a Parkinson's patient group, recruited through a local support group affiliated with the Parkinson's Foundation (the first candidate to approach), with a physiotherapy practice brought in for the first supervised user session (STC-DEC-001).
 
 No budget, pitch or problem change was recommended, so `budget_usd` stays at $200 and the pitch and problem lines are unchanged. No item needs a change in another repo. No item called for TRL 4 work.
 

@@ -3,9 +3,9 @@ doc_id: STC-PRC-001
 title: StepCue design precis
 project: StepCue
 doc_type: Design precis
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Design for construction (STC-DDR-003, draft); components, figures and key numbers updated from STC-CAL-001 v0.3; STC-DWG-001 Rev P3
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Design for construction accepted; partner, charging, pod, traces and next model revision as decided on 2026-10-02 (STC-DEC-001)"
 ---
 
 # StepCue design precis
@@ -121,9 +125,9 @@ Amish also decided, on 2026-09-25, the two items raised at TRL 3, again going wi
 - **Separate cue-start target for the audio route (O2).** R6 keeps 0.1 s for the haptic default and sets 0.3 s for phone or earbud audio, since latency shifts only the first beat and not the rhythm.
 - **2.5 mm EVA base (O3).** The stack falls from 5.00 mm to 4.50 mm. At the time the 2.7 mm motor sat on a 0.2 mm EVA floor under a relief in the laminate; STC-DDR-003 replaces both with a through-hole, keeping the 4.50 mm stack.
 
-On 2026-10-01, under Amish's 2026-09-30 instruction to make every design physically buildable, the model was made constructable (STC-DDR-003, draft, open for his review): a two-layer laminate, routed traces, a motor through-hole, a 9 mm tail with a connector in the pod, a curved clip, a 37 mm pod with a screwed lid and USB-C through its bottom wall. The prototype build plan is STC-BLD-001.
+On 2026-10-01, under Amish's 2026-09-30 instruction to make every design physically buildable, the model was made constructable (STC-DDR-003, accepted by Amish on 2026-10-02): a two-layer laminate, routed traces, a motor through-hole, a 9 mm tail with a connector in the pod, a curved clip, a 37 mm pod with a screwed lid and USB-C through its bottom wall. The prototype build plan is STC-BLD-001.
 
-Still proposed, awaiting Amish: the first co-design partner (O1) and the items in the design decisions register (STC-DEC-001).
+Decided by Amish on 2026-10-02 (STC-DEC-001): the first co-design partner is a Parkinson's patient group, recruited through a local support group affiliated with the Parkinson's Foundation (the first candidate to approach), with a physiotherapy practice brought in for the first supervised user session (O1). Insole and pod come out of the shoe together for charging in the supervised prototype sessions; an outside connector is to be decided before any take-home use. The pod is 37 mm wide with four M2 lid screws. The traces are built as modelled and checked for continuity before each wear session. The smooth insole outline and the rounded pod with a parting-line groove are adopted at the next model revision.
 
 ## Safety
 

@@ -3,9 +3,9 @@ doc_id: STC-DEC-001
 title: StepCue design decisions register
 project: StepCue
 doc_type: Design decisions register
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Register opened with the build plan; open items from STC-DDR-001 to STC-DDR-003 and the review note; budget treated as a value-engineering target
+  - version: "0.2"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Amish approved the recommendations for open decisions 1 to 10 (STC-DDR-003 accepted); moved to decisions made"
 ---
 
 # StepCue design decisions register
@@ -23,18 +27,7 @@ StepCue is a research and educational prototype, not a medical device.
 
 ## Open decisions
 
-| # | Decision needed | Options | Recommendation | Affects in the build | Source |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Accept the design for construction changes P1 to P12 (two-layer laminate, routed traces with one crossover, sensor tabs on pads, motor through-hole, 9 mm slit tail, curved clip, tail connector in the pod, USB-C through the bottom wall, taped internal parts, screwed lid, button cap, heel notch) | (a) accept as modelled; (b) accept with changes | (a): each keeps what StepCue does, and the model passes 471 constructability checks | The whole build plan is drawn to these changes | STC-DDR-003, Table 1 |
-| 2 | How the insole and pod are charged | (a) insole and pod come out of the shoe together, as modelled; (b) an outside connector so the pod unplugs from the tail, adding a part and a wear point | (a) for the prototype; revisit after the first user session at TRL 4 | Tail connector inside the pod (section 3.11, step 12) | STC-DDR-003, A1 |
-| 3 | Pod width and lid fixing | (a) 37 mm wide with four M2 screws; (b) 34 mm with a snap-fit lid and no screws | (a): screws are easier to get right first time; a snap lid can follow once the pod is printed | Pod base, lid, screws (sections 3.8 and 3.12) | STC-DDR-003, A2 |
-| 4 | Copper tape traces across the flexing arch and ball of the foot | (a) build as modelled and inspect after the first wear trials at TRL 4; (b) lay the traces in a zigzag where they cross the ball of the foot | (a): keep the first build simple; flex life is a TRL 4 test | Carrier film and traces (section 3.2) | STC-DDR-003, A3 |
-| 5 | First co-design partner | Movement disorders clinic; physiotherapy practice; Parkinson's patient group | None made | Not part of the TRL 3 build; needed before any user session | STC-DDR-001 and STC-DDR-002, O1 |
-| 6 | Appearance model: insole tilted 8 degrees toe-up in the hero render | Keep for the render only; drop | Keep for the render only; the flat fitted state stays the reference | Renders only | Review note, 2026-09-26, item 1 |
-| 7 | Smooth spline insole outline | Adopt in the model at the next revision; keep the polygon | Adopt at the next model revision | Insole outline template (Figure 4 of the build plan) | Review note, 2026-09-26, item 2 |
-| 8 | Appearance-only features (printed sensor rings, forefoot perforations, grip ribs, lid bezel recess, cadence mark) | Treat as appearance only; add to the model | Appearance only. The four M2 lid screws and their bosses are now in the model (STC-DDR-003) | Renders only | Review note, 2026-09-26, item 3 |
-| 9 | Rounded pod envelope (5 mm corner radius) with a parting-line groove | Adopt in the model; keep the square tray and flat lid | Adopt at the next model revision; it softens the edges near the wearer's heel | Pod base and lid shape | Review note, 2026-09-26, item 4 |
-| 10 | Clay shoe shell and foot as render context | Keep for renders; use in the concept media too | Keep for renders only | Renders only | Review note, 2026-09-26, item 5 |
+None. All open decisions were decided on 2026-10-02.
 
 ## To confirm when parts are bought
 
@@ -61,7 +54,17 @@ Value-engineering target: USD 200 (a hypothetical control target, not a limit). 
 | --- | --- | --- | --- |
 | 2026-09-25 | TRL 2 review items D1 to D8: one instrumented insole; nRF52840 module with built-in IMU; pressure plus IMU; electronics in a clip-on heel pod; haptic cue by default with audio through a phone or earbuds; rule-based detector first; commercial FSRs; requirement targets R1 to R15 adopted | Amish: "proceed with all of your recommendations across all batches. Make sure we don't proceed to TRL 4 on any of them." | STC-DDR-001 |
 | 2026-09-25 | O2: separate 0.3 s cue-start target for the phone or earbud audio route (0.1 s kept for haptic) | Amish: "i accept all your recommendations, go with them across all repos." | STC-DDR-002 |
-| 2026-09-25 | O3: 2.5 mm EVA insole base, 4.50 mm stack (the motor floor and laminate relief of that decision are since replaced by a through-hole, STC-DDR-003, open above) | Amish, same instruction | STC-DDR-002 |
+| 2026-09-25 | O3: 2.5 mm EVA insole base, 4.50 mm stack (the motor floor and laminate relief of that decision are since replaced by a through-hole, STC-DDR-003, accepted on 2026-10-02) | Amish, same instruction | STC-DDR-002 |
 | 2026-09-26 | This repo chosen for the first batch of product renders | Amish | Review note, 2026-09-26 |
-| 2026-09-30 | Make the design physically buildable while drawing the build plan | Amish: "If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations." | STC-DDR-003 (draft, changes open above) |
+| 2026-09-30 | Make the design physically buildable while drawing the build plan | Amish: "If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations." | STC-DDR-003 (changes accepted on 2026-10-02, below) |
 | 2026-10-01 | Budget treated as a value-engineering target, not a limit | Amish: "the budgets are a hypothethical control target to ensure we are thinking along a value engineering lens." | This register |
+| 2026-10-02 | Design for construction accepted: the changes P1 to P12 as modelled (option a) | Amish: "i approve your recommendations for all 555 open decisions." | STC-DDR-003, Table 1 |
+| 2026-10-02 | Charging: insole and pod come out of the shoe together (option a) for the supervised prototype sessions; an outside connector so the pod unplugs from the tail (option b) is to be decided before any take-home use | Amish: "i approve your recommendations for all 555 open decisions." | STC-DDR-003, A1 |
+| 2026-10-02 | Pod 37 mm wide with four M2 lid screws (option a); a snap lid can follow once the pod is printed | Amish: "i approve your recommendations for all 555 open decisions." | STC-DDR-003, A2 |
+| 2026-10-02 | Traces across the arch and ball of the foot: build as modelled (option a), check every trace for continuity before each wear session, and inspect after the first wear trials at TRL 4 | Amish: "i approve your recommendations for all 555 open decisions." | STC-DDR-003, A3 |
+| 2026-10-02 | First co-design partner: a Parkinson's patient group, recruited through a local support group affiliated with the Parkinson's Foundation (the first candidate to approach), with a physiotherapy practice brought in for the first supervised user session | Amish: "i approve your recommendations for all 555 open decisions." | STC-DDR-001 and STC-DDR-002, O1 |
+| 2026-10-02 | Hero render: the 8 degree toe-up insole tilt for the hero render only; the flat fitted state stays the reference | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 1 |
+| 2026-10-02 | Smooth spline insole outline adopted at the next model revision; the traces keep their 1.5 mm edge margin | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 2 |
+| 2026-10-02 | Printed sensor rings, forefoot perforations, grip ribs, lid bezel recess and cadence mark are appearance only | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 3 |
+| 2026-10-02 | Rounded pod envelope with a 5 mm corner radius and a parting-line groove adopted at the next model revision | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 4 |
+| 2026-10-02 | Clay shoe shell and foot kept for the renders only | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 5 |

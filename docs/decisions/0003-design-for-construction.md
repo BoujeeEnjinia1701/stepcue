@@ -3,9 +3,9 @@ doc_id: STC-DDR-003
 title: StepCue design for construction
 project: StepCue
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Changes that make the concept physically buildable, with the reason for each; made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Accepted by Amish, including the recommendations for A1 to A3"
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-10-01
-- **Status:** draft. Made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review. Items that would change what StepCue does are not made here; they are in Table 3 as proposed, awaiting Amish.
+- **Status:** accepted. Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." This covers every change in Tables 1 and 2 and the recommendations in Table 3 (A1 to A3), which are now decided as recommended and recorded in the design decisions register (STC-DEC-001). A1 is decided for the supervised prototype sessions; an outside connector is to be decided before any take-home use. A3 adds a continuity check of every trace before each wear session.
 
 ## Context
 
@@ -56,17 +60,18 @@ The changes keep what StepCue does: the same five sensor sites, the same motor s
 | Insole stack | Unchanged at 4.50 mm (2.5 EVA, 0.3 carrier, 0.5 spacer, 1.2 cover); motor under 1.7 mm of foam. | |
 | Clip | Unchanged in size: 1.5 mm finger 18 mm long, 26 mm wide, 1 mm interference, 7.5 N clamp [R12]. | |
 
-*Table 3. Proposed, awaiting Amish.*
+*Table 3. Items that would change what StepCue does: proposed, then decided by Amish as recommended on 2026-10-02.*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A1 | Daily charging. With the connector inside the pod, the insole and pod come out of the shoe together for charging (USB-C with the pod off the shoe, as R12 asks), and the insole cannot be left in the shoe. | (a) as modelled: insole and pod come out as one; (b) an outside connector so the pod unplugs from the tail; this adds a part and a wear point. | (a) for the prototype; revisit after the first user session at TRL 4. |
-| A2 | The pod is 37 mm wide (was 34 mm), leaving 3 mm of the 40 mm R10 limit, to make room for the lid screws. | (a) accept 37 mm with screws; (b) keep 34 mm with a snap-fit lid and no screws. | (a): screws are easier to get right first time; a snap lid can follow once the pod is printed. |
-| A3 | The copper tape traces cross the arch and ball of the foot, where the insole flexes with every step, and may crack. | (a) build as modelled and inspect after the first wear trials at TRL 4; (b) lay the traces in a zigzag where they cross the ball of the foot. | (a): keep the first build simple; the flex life is a TRL 4 test. |
+| A1 | Daily charging. With the connector inside the pod, the insole and pod come out of the shoe together for charging (USB-C with the pod off the shoe, as R12 asks), and the insole cannot be left in the shoe. | (a) as modelled: insole and pod come out as one; (b) an outside connector so the pod unplugs from the tail; this adds a part and a wear point. | (a) for the prototype; revisit after the first user session at TRL 4. Decided by Amish, 2026-10-02: (a) for the supervised prototype sessions; decide on (b) before any take-home use. |
+| A2 | The pod is 37 mm wide (was 34 mm), leaving 3 mm of the 40 mm R10 limit, to make room for the lid screws. | (a) accept 37 mm with screws; (b) keep 34 mm with a snap-fit lid and no screws. | (a): screws are easier to get right first time; a snap lid can follow once the pod is printed. Decided by Amish, 2026-10-02: (a). |
+| A3 | The copper tape traces cross the arch and ball of the foot, where the insole flexes with every step, and may crack. | (a) build as modelled and inspect after the first wear trials at TRL 4; (b) lay the traces in a zigzag where they cross the ball of the foot. | (a): keep the first build simple; the flex life is a TRL 4 test. Decided by Amish, 2026-10-02: (a), with every trace checked for continuity before each wear session. |
 
 ## Consequences
 
 - `design_state: constructable` in `project.yaml`. The build plan STC-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`); open items are in the design decisions register STC-DEC-001.
+- With A1 to A3 decided on 2026-10-02: insole and pod come out together for charging in supervised sessions, with an outside connector to be decided before take-home use; the pod is 37 mm wide with four M2 lid screws; the traces are built as modelled and checked for continuity before each wear session.
 - Requirement status is unchanged: 11 met, none not met, 3 at risk (R3, R4, R5), 1 not verifiable at TRL 3 (R12) (STC-CAL-001 v0.3).
 - The photoreal renders (`media/render-*.png`), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the 34 mm pod with USB-C on top, the flat clip and the 12 mm tail; they need updating on Amish's Mac, where Blender is.
 - The sensor tail length and tab spacing, and how far the module's USB-C receptacle stands past its board, are taken as typical values and are confirmed when the parts are bought (STC-DEC-001).

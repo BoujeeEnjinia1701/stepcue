@@ -262,3 +262,46 @@ All in `docs/06-design-decisions.md`: acceptance of STC-DDR-003 P1 to P12, charg
 ### Recommended next step
 
 Amish reviews STC-DDR-003 and the register. TRL 4 (building and testing to the plan) stays on hold until he says otherwise.
+
+## Session 2026-10-02: open decisions decided
+
+Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." The recommendations written for this repo's open decisions are recorded as decided.
+
+### Decisions recorded
+
+10 decisions, moved from "Open decisions" to "Decisions made" in the register (STC-DEC-001 v0.2):
+
+1. Design for construction P1 to P12 accepted as modelled (STC-DDR-003).
+2. Charging: insole and pod come out together for the supervised prototype sessions; an outside connector is to be decided before any take-home use (A1).
+3. Pod 37 mm wide with four M2 lid screws (A2).
+4. Traces built as modelled, checked for continuity before each wear session, and inspected after the first wear trials at TRL 4 (A3).
+5. First co-design partner: a Parkinson's patient group through a local support group affiliated with the Parkinson's Foundation (first candidate to approach), with a physiotherapy practice for the first supervised user session (O1).
+6. The 8 degree toe-up tilt for the hero render only.
+7. Smooth spline insole outline at the next model revision.
+8. Sensor rings, perforations, grip ribs, bezel recess and cadence mark are appearance only.
+9. 5 mm pod corner radius and parting-line groove at the next model revision.
+10. Clay shoe shell and foot for the renders only.
+
+### Documents changed
+
+- `docs/06-design-decisions.md`: STC-DEC-001 v0.2
+- `docs/decisions/0001-trl2-review-decisions.md`: STC-DDR-001 v0.3
+- `docs/decisions/0002-recommendations-accepted.md`: STC-DDR-002 v0.2
+- `docs/decisions/0003-design-for-construction.md`: STC-DDR-003 v0.2 (accepted; status kept Draft)
+- `docs/01-problem.md`: STC-PRB-001 v0.4 (partner)
+- `docs/02-concept.md`: STC-PRC-001 v0.6 (decisions paragraph)
+
+### Follow-up actions to carry approved decisions into the design
+
+1. Decision 2: decide the outside connector (option b) before any take-home use, and model it then (model).
+2. Decision 4: add a continuity check of every trace to the checklist for each wear session when TRL 4 is opened (docs).
+3. Decision 5: approach a local support group affiliated with the Parkinson's Foundation, and a physiotherapy practice for the first supervised session; nothing is agreed (docs).
+4. Decision 7: change the insole outline in `cad/src/model.py` to the smooth spline, keeping the 1.5 mm trace edge margin, and regenerate the drawing and the insole outline template picture (Figure 4 of the build plan) (model, drawings, pictures).
+5. Decision 9: give the pod base and lid a 5 mm corner radius and a parting-line groove in the model, and regenerate the pod making sketches and build plan pictures (model, drawings, pictures).
+6. Decisions 1 and 3: regenerate the photoreal renders, card and social preview on Amish's Mac for the 37 mm pod with USB-C in the bottom wall, the curved clip and the 9 mm tail, with the render-only choices of decisions 6, 8 and 10 (pictures).
+
+### Points found in the review
+
+- R10 limits the pod body to 20 mm deep and the requirements table shows 20.3 mm including the clip while reporting R10 as met; it should say whether the clip counts.
+- The cost is $89.94 against a $200 target, $110.06 under, so the target no longer drives any value-engineering choice; a second insole for the other foot (about $47) would still leave it well under.
+- Item 2 and R12 conflict: with the connector inside the pod the pod cannot come off the shoe on its own.

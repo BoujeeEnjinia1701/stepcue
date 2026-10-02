@@ -3,9 +3,9 @@ doc_id: STC-PRB-001
 title: StepCue problem statement
 project: StepCue
 doc_type: Problem statement
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: One-insole question closed by Amish 2026-09-25 (STC-DDR-001); prevalence citation authors checked
+- version: "0.4"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "First co-design partner as decided on 2026-10-02 (STC-DEC-001)"
 ---
 
 # StepCue problem statement
@@ -65,6 +69,6 @@ The gap StepCue addresses: an open, low-cost, inspectable insole that senses how
 
 ## Open questions
 
-- Which partner to co-design with first: a movement disorders clinic, a physiotherapy practice or a Parkinson's patient group? Proposed, awaiting Amish (no recommendation; STC-DDR-001, O1).
+- Which partner to co-design with first? Decided by Amish, 2026-10-02 (STC-DEC-001): a Parkinson's patient group, recruited through a local support group affiliated with the Parkinson's Foundation (the first candidate to approach), with a physiotherapy practice brought in for the first supervised user session.
 - One insole or a pair for the first build: decided by Amish, 2026-09-25, one insole on the side the wearer reports freezing most (STC-DDR-001, D1).
 - Where to obtain labeled plantar-pressure freeze data to develop the detector before any human testing, which in any case needs ethics approval and belongs to TRL 4 or later.
