@@ -3,7 +3,7 @@ doc_id: STC-PRC-001
 title: StepCue design precis
 project: StepCue
 doc_type: Design precis
-version: "0.6"
+version: "0.7"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -33,6 +33,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Design for construction accepted; partner, charging, pod, traces and next model revision as decided on 2026-10-02 (STC-DEC-001)"
+- version: "0.7"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: Smooth spline insole outline and rounded pod with parting-line groove now in the model; pod mass from STC-CAL-001 v0.4; STC-DWG-001 Rev P4
 ---
 
 # StepCue design precis
@@ -81,7 +85,7 @@ Table 1. Main components. Numbers match `bom/bom.csv` and the exploded view.
 
 *Figure 4. Section through the heel pod and flex tail (insole layers hidden). From the left: lid, the interface board above the controller module, the LiPo cell, and the shoe-side wall. The gap between the pod and the vertical flex tail is where the shoe's heel counter sits; the clip bridges over it and its finger presses the tail against the inside of the counter.*
 
-The general arrangement drawing is [STC-DWG-001 Rev P3](../cad/drawings/STC-DWG-001.pdf); the parametric model is `cad/src/model.py`.
+The general arrangement drawing is [STC-DWG-001 Rev P4](../cad/drawings/STC-DWG-001.pdf); the parametric model is `cad/src/model.py`.
 
 ## Key numbers
 
@@ -103,8 +107,8 @@ Table 2. Key numbers.
 | Average current while worn | 1.45 mA nominal, 2.44 mA conservative | IMU 0.90 mA plus MCU, FSR dividers, BLE | |
 | Battery life | 12.5 days nominal, 7.4 days conservative | 306 mAh usable of 400 mAh | R11 met |
 | Insole stack | 4.50 mm (4.3 to 4.7 mm with EVA tolerance) | 2.5 mm EVA, 0.8 mm two-layer laminate round the FSRs, 1.2 mm cover | R9 met, 0.5 mm margin |
-| Heel pod | 27.2 g; 42 x 37 x 15 mm (20.3 mm deep with the clip) | Model volumes and part masses | R10 met |
-| Clip | 7.5 N clamp; 6.0 N hold against 2.7 N at heel strike | PETG cantilever, 1.0 mm interference | R12 supports; not verifiable |
+| Heel pod | 26.8 g; 42 x 37 x 15 mm (20.3 mm deep with the clip) | Model volumes and part masses | R10 met |
+| Clip | 7.5 N clamp; 6.0 N hold against 2.6 N at heel strike | PETG cantilever, 1.0 mm interference | R12 supports; not verifiable |
 | Parts cost | $89.94 per unit, $110.06 under the $200 value-engineering target | `bom/bom.csv`, 14 priced lines | R14 met |
 
 ## Design choices
@@ -127,7 +131,7 @@ Amish also decided, on 2026-09-25, the two items raised at TRL 3, again going wi
 
 On 2026-10-01, under Amish's 2026-09-30 instruction to make every design physically buildable, the model was made constructable (STC-DDR-003, accepted by Amish on 2026-10-02): a two-layer laminate, routed traces, a motor through-hole, a 9 mm tail with a connector in the pod, a curved clip, a 37 mm pod with a screwed lid and USB-C through its bottom wall. The prototype build plan is STC-BLD-001.
 
-Decided by Amish on 2026-10-02 (STC-DEC-001): the first co-design partner is a Parkinson's patient group, recruited through a local support group affiliated with the Parkinson's Foundation (the first candidate to approach), with a physiotherapy practice brought in for the first supervised user session (O1). Insole and pod come out of the shoe together for charging in the supervised prototype sessions; an outside connector is to be decided before any take-home use. The pod is 37 mm wide with four M2 lid screws. The traces are built as modelled and checked for continuity before each wear session. The smooth insole outline and the rounded pod with a parting-line groove are adopted at the next model revision.
+Decided by Amish on 2026-10-02 (STC-DEC-001): the first co-design partner is a Parkinson's patient group, recruited through a local support group affiliated with the Parkinson's Foundation (the first candidate to approach), with a physiotherapy practice brought in for the first supervised user session (O1). Insole and pod come out of the shoe together for charging in the supervised prototype sessions; an outside connector is to be decided before any take-home use. The pod is 37 mm wide with four M2 lid screws. The traces are built as modelled and checked for continuity before each wear session. The smooth insole outline and the rounded pod (5 mm corners) with a parting-line groove are now in the model, the drawing and the build plan.
 
 ## Safety
 

@@ -27,6 +27,9 @@ import model as M  # noqa: E402
 OUT = ROOT / "docs" / "05-build-plan"
 DWG = ROOT / "cad" / "drawings"
 DATE = "2026-10-01"
+P1 = ("P1", "Making sketch for the prototype build plan", DATE, "AC")
+OUTLINE_P2 = dict(rev="P2", history=(P1, ("P2", "Smooth spline insole outline", "2026-10-02", "AC")))
+POD_P2 = dict(rev="P2", history=(P1, ("P2", "5 mm pod corners, parting-line groove", "2026-10-02", "AC")))
 REPO = "github.com/BoujeeEnjinia1701/stepcue"
 _C = {}
 
@@ -110,16 +113,17 @@ def overview():
 
 # ----------------------------------------------------------------- making sketches
 def sheet(part_, neighbours, dwg_no, title, material, notes, views=("front", "top", "right"), view_shape=None,
-          inset_view=(24, -58), rev="P1"):
+          inset_view=(24, -58), rev="P1", history=()):
     """As build_views.component_sheet, but with a choice of views: a flat sheet part (an insole
     layer) is drawn in plan only, since its edge views are a fraction of a millimetre thick."""
     from drawing import Sheet, project_views
     work = DWG / f"_{dwg_no}_views"
     vs = project_views(view_shape if view_shape is not None else part_.shape, work)
     inset = bv.where_it_goes(part_, neighbours, work / "where.png", elev=inset_view[0], azim=inset_view[1])
-    s = Sheet(project="StepCue", title=title, dwg_no=dwg_no, rev=rev, author="Amish Chadha", date=DATE,
+    s = Sheet(project="StepCue", title=title, dwg_no=dwg_no, rev=rev, author="Amish Chadha",
+              date=history[-1][2] if history else DATE,
               concept="BUILD PLAN SKETCH, PLAN NOT YET BUILT", scale=None, material=material,
-              revisions=[(rev, "Making sketch for the prototype build plan", DATE, "AC")])
+              revisions=list(history) or [(rev, "Making sketch for the prototype build plan", DATE, "AC")])
     s.add_ortho(vs, list(views))
     s.add_image(str(inset), 276, 30, 140, 70, label="Where it goes", sublabel="This part in colour, its neighbours in grey")
     s.add_notes("How to make it and how it fits", notes, x=276, y=112, width=140)
@@ -140,8 +144,8 @@ def sheets(which=None):
     S["101"] = lambda: sheet(
         m["foam"], [m["base"]], "STC-DWG-101", "StepCue EVA base: making sketch",
         "EVA foam sheet 2.5 mm, black or grey, cut to the insole outline", notes=[
-            "Print the insole outline full size (insole layout picture) or trace",
-            "  the shoe's own insole; this model is about EU 42 (US men's 8.5).",
+            "Print the insole outline (one smooth curve, no corners) full size",
+            "  from the insole layout picture; this model is about EU 42.",
             "Lay the print on the EVA and cut round it with a sharp knife on a",
             "  cutting mat: one pass with the blade upright, no sawing.",
             f"Motor hole: {2 * (p['motor_d'] / 2 + p['pocket_clear']):.1f} mm round, centred {mx:.0f} mm from the heel",
@@ -152,7 +156,7 @@ def sheets(which=None):
             "  stands in it, 0.1 mm clear of the shoe's floor.",
             "Check: lay it in the shoe; it lies flat with no edge curling up",
             "  the side of the shoe. Trim the outline if it does.",
-        ], **flat)
+        ], **flat, **OUTLINE_P2)
     S["102"] = lambda: sheet(
         part("Carrier film with traces", fuse("film", "traces", "patch", "bridge"), COL["film"]),
         [m["foam"], m["fsrs"], m["tail"]], "STC-DWG-102", "StepCue carrier film and copper traces: making sketch",
@@ -170,7 +174,7 @@ def sheets(which=None):
             "  front-foot trace, cover it with an 8 x 8 mm polyimide patch,",
             "  then lay the midfoot supply branch over the patch.",
             "Check: a meter shows no connection between any two pads.",
-        ], **flat)
+        ], **flat, **OUTLINE_P2)
     S["103"] = lambda: sheet(
         m["spacer"], [m["film"], m["fsrs"], m["tail"]], "STC-DWG-103", "StepCue spacer foam: making sketch",
         "Closed-cell polyethylene foam 0.5 mm", notes=[
@@ -187,7 +191,7 @@ def sheets(which=None):
             "  the foam.",
             "Check: run a finger over it; no sensor edge or solder joint can",
             "  be felt above the foam.",
-        ], **flat)
+        ], **flat, **OUTLINE_P2)
     S["104"] = lambda: sheet(
         m["cover"], [m["spacer"], m["foam"]], "STC-DWG-104", "StepCue top cover: making sketch",
         "1.2 mm PU foam with textile face, cut from a thin commercial insole", notes=[
@@ -201,15 +205,17 @@ def sheets(which=None):
             "  and tester can find them.",
             "Check: the finished insole is 4.5 mm thick (4.3 to 4.7 mm) at the",
             "  heel and the ball of the foot.",
-        ], **flat)
+        ], **flat, **OUTLINE_P2)
     base = C()["base"]
     S["105"] = lambda: sheet(
         m["base"], [m["cell"], m["module"], m["iface"], grey_shoe], "STC-DWG-105",
         "StepCue pod base with clip: making sketch", "PETG, 3D printed, 0.2 mm layers, 4 perimeters, 40 % infill",
-        view_shape=Pos(0, 0, -p["pod_bot"]) * base, inset_view=(20, -150), notes=[
+        view_shape=Pos(0, 0, -p["pod_bot"]) * base, inset_view=(20, -150), **POD_P2, notes=[
             "Print lying on its side (a 37 mm side face on the bed), so the clip",
             "  bends along its layers and the largest span is 11.5 mm.",
-            "Tray: 42 high, 37 wide, 13 deep, walls 1.5, open on the lid side.",
+            "Tray: 42 high, 37 wide, 13 deep, walls 1.5, open on the lid side;",
+            "  corners rounded to 5 mm outside (3.5 mm inside). A groove 0.5",
+            "  wide and 0.5 deep runs round the rim where the lid meets it.",
             "Clip: a 2 mm bridge over the counter top and a 1.5 mm finger",
             "  18 mm long, both curved to the heel counter (32 mm radius",
             "  inside). Fitted gap 3.8 mm; 2.8 mm as printed (1 mm grip).",
@@ -243,8 +249,9 @@ def sheets(which=None):
     S["107"] = lambda: sheet(
         part("Lid", C()["lid"], COL["lid"]), [m["base"], m["iface"]], "STC-DWG-107", "StepCue pod lid: making sketch",
         "PETG, 3D printed flat, outer face down, 0.2 mm layers",
-        view_shape=Pos(0, 0, -p["pod_bot"]) * C()["lid"], inset_view=(20, -150), notes=[
-            "Print flat, 42 x 37 x 2 mm, outer face on the bed (smooth face out).",
+        view_shape=Pos(0, 0, -p["pod_bot"]) * C()["lid"], inset_view=(20, -150), **POD_P2, notes=[
+            "Print flat, 42 x 37 x 2 mm with 5 mm round corners, outer face",
+            "  on the bed (smooth face out).",
             f"Button hole 10 mm round, centred {p['z_button'] - p['pod_bot']:.1f} mm up from the lower edge.",
             f"LED window 3 mm round, {p['z_led'] - p['pod_bot']:.1f} mm up, 4.5 mm toward the outer side.",
             "Four screw holes 2.2 mm, countersunk 3.8 mm, at the corners: 3.3 mm",

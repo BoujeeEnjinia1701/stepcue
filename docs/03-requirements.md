@@ -3,9 +3,9 @@ doc_id: STC-REQ-001
 title: StepCue requirements
 project: StepCue
 doc_type: Requirements
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,11 +29,15 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Status from STC-CAL-001 v0.3 after the design for construction (STC-DDR-003, draft); R10 and R14 figures updated, no status changed
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: Status from STC-CAL-001 v0.4 after the model revision of 2026-10-02; R10 mass updated, no status changed
 ---
 
 # StepCue requirements
 
-Amish adopted targets R1 to R15 on 2026-09-25 (STC-DDR-001, decision D8). R7 and R14 are restated to match decisions D1 (one instrumented insole) and D5 (haptic cue by default, audio through a phone or earbuds). R6 is restated with a separate target for the audio route, decided by Amish on 2026-09-25 (STC-DDR-002, item O2). The status column gives the TRL 3 position from the calculation note STC-CAL-001 v0.3, after the design for construction changes of STC-DDR-003 (draft, open for Amish's review); nothing here has been measured.
+Amish adopted targets R1 to R15 on 2026-09-25 (STC-DDR-001, decision D8). R7 and R14 are restated to match decisions D1 (one instrumented insole) and D5 (haptic cue by default, audio through a phone or earbuds). R6 is restated with a separate target for the audio route, decided by Amish on 2026-09-25 (STC-DDR-002, item O2). The status column gives the TRL 3 position from the calculation note STC-CAL-001 v0.4, after the design for construction changes of STC-DDR-003 (accepted by Amish on 2026-10-02) and the smooth insole outline and rounded pod decided the same day; nothing here has been measured.
 
 Table 1. Requirements and TRL 3 status.
 
@@ -48,7 +52,7 @@ Table 1. Requirements and TRL 3 status.
 | R7 | Deliver a rhythmic cue the wearer can feel or hear | Haptic pulses at the wearer's baseline cadence (adjustable 60 to 130 per minute); where the wearer chooses audio, beeps of 60 dB(A) or more at the ear through a paired phone or earbuds | Calculation from datasheets; later bench measurement | Met: 203 Hz pulses stay distinct at 130 per minute; earbuds exceed 60 dB(A). Felt intensity through a sock cannot be shown on paper |
 | R8 | Stop cueing when walking resumes | Cue stops within 3 regular steps, or after 15 s at most | Firmware logic review | Met by design (3 steps about 1.7 s) |
 | R9 | Keep the shoe comfortable | Insole stack 5.0 mm or less; no rigid part thicker than 1 mm under the heel or metatarsal heads | Parametric model; later pressure mapping | Met: 4.50 mm with the 2.5 mm EVA base (4.7 mm at the upper EVA tolerance); FSRs 0.46 mm |
-| R10 | Keep the heel pod light and small | Pod 35 g or less; body no larger than 45 x 40 x 20 mm | Parametric model; later weighing | Met: 27.2 g; 42 x 37 x 15 mm (20.3 mm deep including the clip) |
+| R10 | Keep the heel pod light and small | Pod 35 g or less; body no larger than 45 x 40 x 20 mm | Parametric model; later weighing | Met: 26.8 g; 42 x 37 x 15 mm (20.3 mm deep including the clip) |
 | R11 | Run a full day and more | 2 days or more between charges at 16 h per day of wear | Power budget calculation | Met: 12.5 days nominal, 7.4 days conservative |
 | R12 | Usable with reduced dexterity | Pod clips on and off one-handed; USB-C charging with the pod off the shoe; one large button to pause cues | Design review; later user session | Not verifiable at TRL 3. Clip removal about 6 N by calculation; 10 mm button |
 | R13 | Keep data with the wearer | Detection and cueing on the device; optional event log exported over USB or BLE by the owner only; no cloud | Design review | Met by design; the phone is used only for optional audio |

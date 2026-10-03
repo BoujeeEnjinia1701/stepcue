@@ -3,9 +3,9 @@ doc_id: STC-BLD-001
 title: StepCue prototype build plan
 project: StepCue
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: First build plan, with pictures by component and step; design made constructable (STC-DDR-003)
+  - version: "0.2"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: Smooth spline insole outline; pod corners rounded to 5 mm with a parting-line groove; trace continuity check before every wear; pictures and sketches redrawn
 ---
 
 # StepCue prototype build plan
@@ -49,6 +53,8 @@ The concept showed what StepCue does; some of its parts could not be made or joi
 | Controller module | USB-C up, short of the wall | USB-C down, through a notch in the bottom wall (Figure 13) | The board must sit below the connector; the plug now seats fully |
 | Lid | No fixing; tact switch short of the lid | Four M2 screws into corner bosses; a button cap 1 mm proud (Figures 17 and 18) | The lid holds everything; the button can be pressed |
 | Pod width | 34 mm | 37 mm | Room for the lid bosses beside the cell |
+| Insole outline | Straight runs between the heel and toe curves | One smooth curve with no corners, traces still 1.5 mm inside the edge (Figure 4) | A smooth edge cuts cleanly and sits evenly against the shoe |
+| Pod corners | Square | Rounded to 5 mm, with a shallow groove where the lid meets the base (Figures 11 and 17) | Nothing to catch on clothing; the joint reads as a clean line |
 
 ## 3. Making the components
 
@@ -64,7 +70,7 @@ Make and check each component before the assembly step that needs it. Sizes are 
 
 **How to make it.**
 
-1. Print the insole outline full size from the insole layout (Figure 4), or trace round the shoe's own insole. Check the print against a ruler: 272 mm long.
+1. Print the insole outline full size from the insole layout (Figure 4). It is one smooth curve with no corners. If you trace round the shoe's own insole instead, keep every copper trace at least 1.5 mm inside its edge. Check the print against a ruler: 272 mm long.
 2. Lay the print on the foam and cut round it with a sharp knife on a cutting mat, blade upright, one steady pass.
 3. Punch the motor hole, 10.6 mm (an 11 mm punch is fine), centred 120 forward and 16 toward the big toe.
 4. Cut the lead notch: 4.4 mm wide, from the hole 4.5 mm toward the heel.
@@ -192,7 +198,7 @@ Make and check each component before the assembly step that needs it. Sizes are 
 **How to make it.**
 
 1. Print it lying on one of its 37 mm side faces, at 0.2 mm layers, four perimeters and 40 % infill. In this position the clip bends along its layers, not across them, and the widest span the printer must bridge is 11.5 mm.
-2. The tray is 42 high, 37 wide and 13 deep with 1.5 mm walls, open on the lid side.
+2. The tray is 42 high, 37 wide and 13 deep with 1.5 mm walls, open on the lid side. Its four long edges are rounded to 5 mm outside and 3.5 mm inside, so the wall stays 1.5 mm thick round the corners. A groove 0.5 mm wide and 0.5 mm deep runs round the rim where the lid meets it.
 3. The clip is a 2 mm bridge over the counter top and a 1.5 mm finger 18 mm long and 26 mm wide, both curved to the counter (32 mm radius inside). As printed, the gap between the finger and the tray is 1 mm narrower than the counter and tail together, so the clip grips.
 4. Round every edge of the finger to about 0.5 mm with a fine file: it rests against the wearer's heel through the sock.
 5. Clear the tail slot (10 x 0.6 mm, in the shoe-side wall just under the roof), the USB-C notch (9.4 mm wide in the bottom wall) and the four 1.6 mm pilot holes in the corner bosses.
@@ -261,7 +267,7 @@ Make and check each component before the assembly step that needs it. Sizes are 
 
 *Figure 17. Lid making sketch (STC-DWG-107).*
 
-**What it is and what it is made from.** The flat cover of the pod. PETG, 3D printed, 42 x 37 x 2 mm.
+**What it is and what it is made from.** The flat cover of the pod. PETG, 3D printed, 42 x 37 x 2 mm, with its corners rounded to 5 mm to match the base.
 
 **How to make it.**
 
@@ -395,7 +401,7 @@ These are the checks a TRL 4 test report would record; this plan only lists them
 | Sampling | R1, R2 | Log all six channels at rest for 10 s | 104 samples per second on every channel |
 | Motor cue | R6, R7 | Trigger a test cue from the controller | Pulses of 100 ms at the set tempo, felt through the cover by hand |
 | Pause button | R12 | Press the cap during a test cue | The cue stops |
-| Pod mass and size | R10 | Weigh the closed pod; measure it | 35 g or less (27.2 g estimated); within 45 x 40 x 20 mm |
+| Pod mass and size | R10 | Weigh the closed pod; measure it | 35 g or less (26.8 g estimated); within 45 x 40 x 20 mm |
 | Clip hold | R12 | Clip on and off one-handed on a shoe; pull straight up with a spring scale | On and off one-handed; it holds at least 2.5 N (about 6 N estimated) |
 | Charging | R11, R12 | Charge from USB-C with the pod off the shoe, attended | Charges and stops; the cell stays below 40 °C |
 | Current while running | R11 | Meter in the cell lead, detector running | About 1.5 mA (2.4 mA at most) |
@@ -410,7 +416,7 @@ Stop at each point. Carry on only when everything listed is true.
 - **S3. Before the cell is plugged in.** With the cell out, the module's battery pads and the interface board's supply read no short to ground; the polarity at the battery pads has been checked with a meter, not by wire colour; nothing in the pod can press on the cell.
 - **S4. First charge.** Attended the whole time, pod off the shoe and lid off, on the charging spot; cell temperature checked every 15 minutes. Stop at once if the cell passes 40 °C or swells.
 - **S5. Before the motor is driven from the module.** The diode is across the motor; a test cue starts at the lowest intensity.
-- **S6. Before the insole is worn, even briefly.** Only by the builder, standing and seated, never walking with someone who freezes. Every edge of the clip finger is rounded; no copper, solder or sensor edge can be felt through the cover; the pod is closed with all four screws; the wearer's heel skin is checked after 10 minutes. StepCue is a research and educational prototype, not a medical device, and must not be relied on to prevent falls; wear trials belong to later, supervised work with ethics review.
+- **S6. Before the insole is worn, even briefly.** Only by the builder, standing and seated, never walking with someone who freezes. Every edge of the clip finger is rounded; no copper, solder or sensor edge can be felt through the cover; the pod is closed with all four screws; every one of the eight traces reads continuous with a meter, from its connector way to its pad at the sensor or motor, before each wear, however short; the wearer's heel skin is checked after 10 minutes. StepCue is a research and educational prototype, not a medical device, and must not be relied on to prevent falls; wear trials belong to later, supervised work with ethics review.
 - **S7. Never charge while worn or wet.** Take the insole and pod out of the shoe together to charge.
 
 ## 7. Tools, skills and workspace
@@ -427,8 +433,8 @@ Stop at each point. Carry on only when everything listed is true.
 
 - Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`); STEP and STL exports in `cad/step/` and `cad/stl/`.
 - Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/STC-DWG-101` to `STC-DWG-107`.
-- General arrangement: `cad/drawings/STC-DWG-001.pdf`, Rev P3.
-- Calculations: `docs/04-calcs/01-sizing.md` (STC-CAL-001 v0.3) and `docs/04-calcs/sizing.py`: insole stack (R9), pod size and mass (R10), clip (R12), power (R11), cost (R14).
+- General arrangement: `cad/drawings/STC-DWG-001.pdf`, Rev P4.
+- Calculations: `docs/04-calcs/01-sizing.md` (STC-CAL-001 v0.4) and `docs/04-calcs/sizing.py`: insole stack (R9), pod size and mass (R10), clip (R12), power (R11), cost (R14).
 - Bill of materials: `bom/bom.csv`.
 - Decisions: `docs/decisions/0003-design-for-construction.md` (STC-DDR-003), with STC-DDR-001 and STC-DDR-002, indexed in `docs/06-design-decisions.md` (STC-DEC-001).
-- Requirements: `docs/03-requirements.md` (STC-REQ-001 v0.5).
+- Requirements: `docs/03-requirements.md` (STC-REQ-001 v0.6).

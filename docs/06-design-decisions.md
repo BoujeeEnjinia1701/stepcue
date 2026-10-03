@@ -3,7 +3,7 @@ doc_id: STC-DEC-001
 title: StepCue design decisions register
 project: StepCue
 doc_type: Design decisions register
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Amish approved the recommendations for open decisions 1 to 10 (STC-DDR-003 accepted); moved to decisions made"
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: Smooth insole outline and rounded pod carried into the model; value engineering checked (no price change)
 ---
 
 # StepCue design decisions register
@@ -42,7 +46,7 @@ None. All open decisions were decided on 2026-10-02.
 
 ## Value engineering
 
-Value-engineering target: USD 200 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 89.94 for one instrumented insole and one heel pod (USD 110.06 under the target). Main cost drivers and savings worth trying:
+Value-engineering target: USD 200. Estimated cost of the constructable design: USD 89.94 (USD 110.06 under the target). The target is a hypothetical control figure, not a limit; the estimate is for one instrumented insole and one heel pod, and is unchanged by the smooth insole outline and rounded pod carried into the model on 2026-10-02. Main cost drivers and savings worth trying:
 
 - The largest lines are the controller module (USD 15.99), the sensor laminate materials (USD 15.00), the five pressure sensors (USD 14.95), the cell (USD 7.00), and the interface board parts and hardware (USD 6.00 each).
 - Making the design constructable added the tail connector (USD 2.50) and the spacer foam (USD 3.00) and repriced the hardware line (USD 5.00 to USD 6.00); the estimate rose from USD 83.44 to USD 89.94.
@@ -64,7 +68,7 @@ Value-engineering target: USD 200 (a hypothetical control target, not a limit). 
 | 2026-10-02 | Traces across the arch and ball of the foot: build as modelled (option a), check every trace for continuity before each wear session, and inspect after the first wear trials at TRL 4 | Amish: "i approve your recommendations for all 555 open decisions." | STC-DDR-003, A3 |
 | 2026-10-02 | First co-design partner: a Parkinson's patient group, recruited through a local support group affiliated with the Parkinson's Foundation (the first candidate to approach), with a physiotherapy practice brought in for the first supervised user session | Amish: "i approve your recommendations for all 555 open decisions." | STC-DDR-001 and STC-DDR-002, O1 |
 | 2026-10-02 | Hero render: the 8 degree toe-up insole tilt for the hero render only; the flat fitted state stays the reference | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 1 |
-| 2026-10-02 | Smooth spline insole outline adopted at the next model revision; the traces keep their 1.5 mm edge margin | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 2 |
+| 2026-10-02 | Smooth spline insole outline adopted at the next model revision; the traces keep their 1.5 mm edge margin (in the model since 2026-10-02) | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 2 |
 | 2026-10-02 | Printed sensor rings, forefoot perforations, grip ribs, lid bezel recess and cadence mark are appearance only | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 3 |
-| 2026-10-02 | Rounded pod envelope with a 5 mm corner radius and a parting-line groove adopted at the next model revision | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 4 |
+| 2026-10-02 | Rounded pod envelope with a 5 mm corner radius and a parting-line groove adopted at the next model revision (in the model since 2026-10-02) | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 4 |
 | 2026-10-02 | Clay shoe shell and foot kept for the renders only | Amish: "i approve your recommendations for all 555 open decisions." | Review note, 2026-09-26, item 5 |

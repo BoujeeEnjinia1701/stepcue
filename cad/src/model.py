@@ -12,13 +12,15 @@ inner face is at X = 0 and its outer face at X = -counter_t. Its top edge is at 
 The heel pod hangs on the outside of the counter and clips over its top edge.
 
 Decisions reflected: STC-DDR-001 and STC-DDR-002 (2026-09-25), and the design for
-construction changes of STC-DDR-003 (2026-10-01, draft, open for Amish's review):
+construction changes of STC-DDR-003 (2026-10-01, accepted by Amish on 2026-10-02):
 two-layer sensor laminate (carrier film with copper tape traces, foam spacer with
 windows), sensor tails and tab pads, routed traces with one insulated crossover, motor
 in a through-hole bonded under the spacer, 8-way 9 mm tail slit and fanned onto pads,
 tail connector on the interface board, interface board above the module, USB-C through
 the bottom wall, curved clip finger, taped internal parts, lid on four M2 screws into
-corner bosses, button cap through the lid. BUILD PLAN MODEL, PLAN NOT YET BUILT.
+corner bosses, button cap through the lid. Model revision of 2026-10-02 (Amish's decisions):
+smooth spline insole outline, pod corners rounded to 5 mm with a parting-line groove.
+BUILD PLAN MODEL, PLAN NOT YET BUILT.
 """
 from pathlib import Path
 import itertools
@@ -69,6 +71,8 @@ PARAMS = {
     "pod_z": 42.0,            # height
     "wall": 1.5,
     "lid_t": 2.0,
+    "pod_r": 5.0,             # corner radius of the pod body seen from the lid (2026-10-02 decision)
+    "groove": 0.5,            # parting-line groove round the base rim at the lid: width and depth
     # Clip over the counter top
     "bridge_t": 2.0,
     "bridge_w": 26.0,
@@ -99,8 +103,10 @@ PARAMS = {
 }
 
 
-def outline(p, grow=0.0, n=40):
-    """Right-foot insole outline as a list of (x, y) points, optionally grown outward."""
+def concept_outline(p, grow=0.0, n=40):
+    """The TRL 3 insole outline as a polyline (x, y): straight runs between set half-widths, an
+    elliptical toe cap and a circular heel cup (radius heel_r about X = heel_r). It has corners
+    where the straight runs meet; outline_points() smooths it."""
     k = p["insole_l"] / 272.0
     xs = np.linspace(32, 255, n) * k
     lat = np.interp(xs, np.array([32, 100, 180, 230, 255]) * k, [32, 33, 42, 38, 28]) + grow
@@ -112,6 +118,42 @@ def outline(p, grow=0.0, n=40):
     for t in np.linspace(np.pi / 2, 3 * np.pi / 2, 24)[1:-1]:       # heel cup
         pts.append((32 * k + (32 + grow) * np.cos(t), (32 + grow) * np.sin(t)))
     return pts
+
+
+def outline_points(p, grow=0.0, step=30.0):
+    """Control points of the smooth insole outline (decision of 2026-10-02): the concept outline
+    from the lateral heel round the toe to the medial heel, resampled every `step` mm so its
+    corners are not copied into the spline, plus the heel cup arc kept exact (the clip and the
+    tail fit the heel counter there)."""
+    from shapely.geometry import LineString
+    n = 40
+    k = p["insole_l"] / 272.0
+    front = concept_outline(p, grow, n)[: 2 * n + 22]                  # lateral side, toe cap, medial side
+    line = LineString(front)
+    m = int(round(line.length / step))
+    pts = [(q.x, q.y) for q in (line.interpolate(i * line.length / m) for i in range(m + 1))]
+    r = p["heel_r"] + grow
+    pts += [(32 * k + r * math.cos(t), r * math.sin(t)) for t in np.linspace(np.pi / 2, 3 * np.pi / 2, 13)[1:-1]]
+    return pts
+
+
+_OUTLINE_CACHE = {}
+
+
+def outline_edge(p, grow=0.0):
+    """The insole outline as one smooth closed spline (decision of 2026-10-02: smooth spline
+    outline, traces kept 1.5 mm inside it). Replaces the TRL 3 polyline outline."""
+    from build123d import Edge, Vector
+    return Edge.make_spline([Vector(x, y, 0) for x, y in outline_points(p, grow)], periodic=True)
+
+
+def outline(p, grow=0.0, n=720):
+    """The smooth spline outline sampled as n points (x, y) about 0.9 mm apart, for layout checks and drawings."""
+    key = (p["insole_l"], round(grow, 4), n)
+    if key not in _OUTLINE_CACHE:
+        e = outline_edge(p, grow)
+        _OUTLINE_CACHE[key] = [(v.X, v.Y) for v in (e.position_at(i / n) for i in range(n))]
+    return list(_OUTLINE_CACHE[key])
 
 
 def derived(params=None):
@@ -306,8 +348,9 @@ def _prism(poly, z0, t):
 
 
 def _slab(p, z0, t, grow=0.0):
-    from shapely.geometry import Polygon
-    return _prism(Polygon(outline(p, grow)), z0, t)
+    """Insole layer: the smooth spline outline extruded from z0 by t."""
+    from build123d import Face, Pos, Wire, extrude
+    return Pos(0, 0, z0) * extrude(Face(Wire([outline_edge(p, grow)])), amount=t, dir=(0, 0, 1))
 
 
 def _zcyl(r, z0, h, x=0.0, y=0.0):
@@ -323,6 +366,14 @@ def _xcyl(r, x0, x1, y, z):
 def _box(x0, x1, y0, y1, z0, z1):
     from build123d import Box, Pos
     return Pos((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2) * Box(abs(x1 - x0), abs(y1 - y0), abs(z1 - z0))
+
+
+def _rbox(x0, x1, hy, z0, z1, r):
+    """Box along X from x0 to x1, Y from -hy to hy, Z from z0 to z1, with its four edges
+    parallel to X rounded to radius r (r = 0 leaves them square)."""
+    from build123d import Axis, fillet
+    b = _box(x0, x1, -hy, hy, z0, z1)
+    return fillet(b.edges().filter_by(Axis.X), r) if r > 0 else b
 
 
 def _ring(r0, r1, z0, h, p):
@@ -405,8 +456,12 @@ def build_parts(params=None):
     ztop, zbot = p["pod_top"], p["pod_bot"]
     xl = p["x_lid_in"]
     hy = p["pod_y"] / 2
-    base = _box(xl, x1, -hy, hy, zbot, ztop)
-    base -= _box(xl - 0.1, p["x_wall_in"], -p["cav_y"] / 2, p["cav_y"] / 2, p["z_floor"], p["z_roof"])
+    base = _rbox(xl, x1, hy, zbot, ztop, p["pod_r"])
+    base -= _rbox(xl - 0.1, p["x_wall_in"], p["cav_y"] / 2, p["z_floor"], p["z_roof"], p["pod_r"] - p["wall"])
+    # parting-line groove round the base rim where the lid meets it
+    g = p["groove"]
+    base -= (_rbox(xl - 0.1, xl + g, hy + 1, zbot - 1, ztop + 1, 0)
+             - _rbox(xl - 0.2, xl + g + 0.1, hy - g, zbot + g, ztop - g, p["pod_r"] - g))
     bw = p["bridge_w"] / 2
     bridge_clip = (_box(x1 - 0.5, 8, -bw, bw, p["tail_top"], ztop) - _zcyl(p["r_finger"], 0, 80, p["heel_r"], 0))
     finger = (_ring(p["r_finger"], p["r_tail"], p["tail_top"] - p["finger_l"], p["finger_l"], p)
@@ -440,7 +495,7 @@ def build_parts(params=None):
     cap = _xcyl(p["cap_d"] / 2, xo - ixx, x0 - p["cap_proud"], 0, p["z_button"])
 
     # Lid with pause button and LED windows and four countersunk screw holes
-    lid = _box(x0, xl, -hy, hy, zbot, ztop)
+    lid = _rbox(x0, xl, hy, zbot, ztop, p["pod_r"])
     lid -= _xcyl(p["button_d"] / 2, x0 - 1, xl + 1, 0, p["z_button"])
     lid -= _xcyl(p["led_d"] / 2, x0 - 1, xl + 1, -myy / 4, p["z_led"])
     screws = None
@@ -464,9 +519,10 @@ def shoe_context(params=None):
     p = derived(params)
     c = p["heel_r"] * p["insole_l"] / 272.0
     outsole = _slab(p, -22, 22, grow=6)
-    inner = _slab(p, -1, 80, grow=0.0)
+    inner = _slab(p, -1, 80, grow=0.02)                             # 0.02 mm fit: no coincident faces
     sides = (_slab(p, 0, p["counter_h"], grow=p["counter_t"]) - inner) & _box(c, 40, -100, 100, -1, 80)
-    heel = _ring(p["r_in"], p["r_out"], 0, p["counter_h"], p) & _box(-10, c, -100, 100, -1, 80)
+    # where the spline outline runs a hair outside the heel circle the counter is relieved to it
+    heel = (_ring(p["r_in"], p["r_out"], 0, p["counter_h"], p) & _box(-10, c, -100, 100, -1, 80)) - inner
     return outsole + sides + heel
 
 
@@ -600,6 +656,36 @@ def check(verbose=True):
     rec(p["boss_d"] - p["pilot_d"] >= 2.0, "lid bosses keep 1.2 mm of wall round the M2 pilot")
     rec(p["stack"] <= 5.0, f"insole stack {p['stack']:.2f} mm <= 5.0 mm (R9)")
     rec(p["pod_z"] <= 45 and p["pod_y"] <= 40 and p["pod_x"] <= 20, "pod body within 45 x 40 x 20 mm (R10)")
+    # 6a. smooth spline insole outline (2026-10-02): passes through its control points, no corners
+    from build123d import Vector
+    ol_pts = np.array(outline(p))
+    a, b, c = np.roll(ol_pts, 1, 0), ol_pts, np.roll(ol_pts, -1, 0)
+    v1, v2 = b - a, c - a
+    area = np.abs(v1[:, 0] * v2[:, 1] - v1[:, 1] * v2[:, 0]) / 2
+    rad = (np.linalg.norm(b - a, axis=1) * np.linalg.norm(c - b, axis=1) * np.linalg.norm(a - c, axis=1)
+           / (4 * area + 1e-12)).min()
+    rec(rad >= 15.0, f"insole outline is a smooth spline: tightest bend radius {rad:.1f} mm >= 15 mm (no corners)")
+    edge = outline_edge(p)
+    dev = max(edge.distance_to(Vector(x, y, 0)) for x, y in outline_points(p))
+    rec(dev < 0.01, f"spline outline passes through its control points (largest miss {dev:.3f} mm)")
+    # 6b. rounded pod (2026-10-02): 5 mm corners on base and lid, groove at the parting line
+    from shapely.geometry import box as sbox
+    hy, zt, zb, R, g = p["pod_y"] / 2, p["pod_top"], p["pod_bot"], p["pod_r"], p["groove"]
+    rec(R - p["wall"] >= 1.0, f"cavity corners rounded to {R - p['wall']:.1f} mm so the wall stays {p['wall']} mm round the corners")
+    xm_b = (p["x_lid_in"] + p["pod_x1"]) / 2
+    xm_l = (p["pod_x0"] + p["x_lid_in"]) / 2
+    for nm, xm in (("base", xm_b), ("lid", xm_l)):
+        corner_out = all(not parts[nm].is_inside((xm, sy * (hy - 0.5), sz)) for sy in (-1, 1) for sz in (zt - 0.5, zb + 0.5))
+        rec(corner_out, f"{nm}: all four corners rounded to {R:.0f} mm")
+    rec(p["wall"] - g >= 1.0, f"parting-line groove {g} x {g} mm leaves {p['wall'] - g:.1f} mm of rim wall (>= 1.0 mm)")
+    floor_g = sbox(-hy + g, zb + g, hy - g, zt - g).buffer(-(R - g)).buffer(R - g)
+    for by, bz in p["bosses"]:
+        where = f"Y {by:+.1f}, {'top' if bz > (zt + zb) / 2 else 'bottom'}"
+        boss = Point(by, bz).buffer(p["boss_d"] / 2, 64)
+        rec(floor_g.contains(boss), f"lid boss at {where} stays inside the rounded corner and the groove "
+            f"({floor_g.exterior.distance(boss):.2f} mm skin)")
+        d = floor_g.exterior.distance(Point(by, bz)) - p["pilot_d"] / 2
+        rec(d >= 1.0, f"M2 pilot at {where} keeps {d:.1f} mm of plastic to the groove (>= 1.0 mm)")
     # 7. assembly order: each pod part slides into the open tray along +X without hitting what is already there
     seq = [("cell", ["base"]), ("cell_tape", ["base"]), ("module", ["base", "cell"]),
            ("iface", ["base", "cell", "module"]), ("zif", ["base", "cell", "module"]), ("cap", ["base", "cell", "module"]),

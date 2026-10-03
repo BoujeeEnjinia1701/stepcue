@@ -255,10 +255,6 @@ All in `docs/06-design-decisions.md`: acceptance of STC-DDR-003 P1 to P12, charg
 - The build plan keeps the cell out of the pod until safety stops S2 and S3, never charges it while worn or wet, and limits any wear to the builder, standing and seated. Wear trials with people who freeze belong to later, supervised work with ethics review. StepCue is a research and educational prototype, not a medical device.
 - New hazards from construction: soldering on thin film (burns, fumes) and spray contact adhesive (flammable fumes); both are covered by stop S1 and the workspace notes.
 
-### Stale media
-
-- `media/render-hero.png`, `media/render-exploded.png`, `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the 34 mm pod with USB-C on top, the flat clip and the 12 mm tail. They are made on Amish's Mac and were not regenerated here.
-
 ### Recommended next step
 
 Amish reviews STC-DDR-003 and the register. TRL 4 (building and testing to the plan) stays on hold until he says otherwise.
@@ -305,3 +301,63 @@ Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." 
 - R10 limits the pod body to 20 mm deep and the requirements table shows 20.3 mm including the clip while reporting R10 as met; it should say whether the clip counts.
 - The cost is $89.94 against a $200 target, $110.06 under, so the target no longer drives any value-engineering choice; a second insole for the other foot (about $47) would still leave it well under.
 - Item 2 and R12 conflict: with the connector inside the pod the pod cannot come off the shoe on its own.
+
+## Session 2026-10-02: approved follow-ups carried out
+
+Amish, 2026-10-02: "APPROVED CHANGES, COMPLETE THESE" for the follow-up actions of the open-decision sign-off, and "COMPLETE THESE" for the out-of-date renders, whose scenes are prepared here. Run on a cloud copy without git, so nothing was committed or pushed. TRL cap respected: no hardware, test plan or build record.
+
+### Follow-ups
+
+1. Decision 2 (outside connector before any take-home use): not done. The decision itself defers it until take-home use is planned; there is nothing to model yet. Stays with Amish.
+2. Decision 4 (continuity check of every trace before each wear session): done in the plan. Safety stop S6 of STC-BLD-001 v0.2 now requires every one of the eight traces to read continuous, connector way to pad, before each wear, however short. The TRL 4 wear-session checklist does not exist yet; carry the same line into it when TRL 4 is opened.
+3. Decision 5 (approach a local support group affiliated with the Parkinson's Foundation and a physiotherapy practice): not done. It is outreach by Amish; nothing is agreed and nothing was sent. STC-PRB-001 v0.4 already records the decision.
+4. Decision 7 (smooth spline insole outline, 1.5 mm trace margin): done. `cad/src/model.py` now builds every insole layer, the shoe context and the layout from one closed spline. Its control points are the earlier outline resampled every 30 mm (so the old corners are not copied into it) plus the exact heel arc where the clip and tail fit the counter. The outline moves up to about 2.4 mm from the old polyline; every trace keeps its 1.5 mm margin and every sensor stays inside. The general arrangement (STC-DWG-001 Rev P4), the insole layout template (build plan Figure 4) and the insole making sketches STC-DWG-101 to 104 (Rev P2) are redrawn.
+5. Decision 9 (5 mm pod corner radius and parting-line groove): done. Base and lid have their four long edges rounded to 5 mm (cavity 3.5 mm, so the wall stays 1.5 mm), and the base rim a 0.5 x 0.5 mm groove at the lid. The corner bosses stay inside the rounded corner and clear of the groove. Making sketches STC-DWG-105 and 107 are Rev P2; the overview, joints and steps are redrawn.
+6. Decisions 1 and 3 with 6, 8 and 10 (photoreal renders, card and social preview): scenes prepared, images not made. `cad/src/product_model.py` is rebuilt on the solids of `model.py`, so it shows the 37 mm rounded pod with the parting groove, the USB-C receptacle in the bottom wall, the curved clip, the 9 mm tail, the two-layer laminate, the motor in its through-hole and the tail connector, with the render-only choices of decisions 6 (8 degree toe-up tilt), 8 (rings, perforations, grip ribs, bezel recess, cadence mark) and 10 (clay shoe and foot). Scenes for the hero and exploded views are in `/home/claude/renders/stepcue/`. `media/render-hero.png`, `render-exploded.png`, `card.png` and `social-preview.png` are to be made on Amish's Mac.
+
+### Model and checks
+
+- `python cad/src/model.py --check`: 485 checks, all pass (was 471). New checks: the outline is a smooth spline (tightest bend 22.6 mm radius) through its control points; base and lid corners are rounded; the cavity keeps the 1.5 mm wall round the corners; the groove leaves 1.0 mm of rim; each of the four lid bosses stays inside the rounded corner and the groove; each M2 pilot keeps 1.3 mm of plastic to the groove.
+- The simplified shoe context now fits the insole with 0.02 mm clearance, so no faces coincide; it is context only.
+- `cad/step/` and `cad/stl/` regenerated (assembly, heel pod and single parts).
+
+### Results
+
+- Requirement status unchanged: 11 met, none not met, 3 at risk (R3 to R5), 1 not verifiable at TRL 3 (R12).
+- Pod mass 26.8 g (was 27.2 g) against 35 g: base 7.49 g, lid 3.62 g. Clip hold 6.0 N against 2.6 N at heel strike.
+- Value-engineering target: USD 200. Estimated cost of the constructable design: USD 89.94 (USD 110.06 under the target). No price changed; `budget_usd` unchanged.
+
+### Documents changed and new versions
+
+- `cad/src/model.py`, `cad/src/product_model.py`, `cad/src/sheets.py`, `cad/src/build_plan_media.py`
+- `docs/05-build-plan.md`: STC-BLD-001 v0.2 (outline and pod text, two rows added to the table of changes, S6 continuity check, figures)
+- `docs/04-calcs/01-sizing.md`: STC-CAL-001 v0.4; `docs/03-requirements.md`: STC-REQ-001 v0.6; `docs/02-concept.md`: STC-PRC-001 v0.7; `docs/06-design-decisions.md`: STC-DEC-001 v0.3
+- `bom/bom.csv` (lines 6, 7 and 11 described; masses 7.5 g and 3.6 g), `bom/bom-notes.md`
+- `README.md`: parts cost corrected to $89.94 (it still said $83.44); STC-DDR-003 shown as accepted; outline and pod described
+- `cad/drawings/STC-DWG-001` Rev P4; STC-DWG-101 to 105 and 107 Rev P2 (106 unchanged)
+- `docs/05-build-plan/`: insole layout, overview, joints 1 to 8 and steps 1 to 14 (wiring unchanged)
+- `media/`: hero, cutaway, exploded, concept blueprint, `model.glb`, `viewer.html` (flow unchanged)
+- The "Stale media" note of 2026-10-01 is superseded by item 6 above; the appearance model is no longer stale. (The note itself was removed on 2026-10-02 when the renders were redone.)
+
+### Cross-repo actions
+
+None.
+
+### Still open
+
+- The review point on R10 (whether the clip counts toward the 20 mm depth) and the conflict between the charging decision and R12 remain as written on 2026-10-02, for Amish.
+
+### Safety
+
+No change to the safety case. StepCue remains a research and educational prototype, not a medical device; the added continuity check before each wear makes a broken trace less likely to go unnoticed.
+
+## Session 2026-10-02: Photoreal renders redone on the constructable design
+
+Amish, 2026-10-02: "Photoreal renders are out of date in most repos ... COMPLETE THESE". Rendered with Blender Cycles on Amish's Mac (batch F1) from the scenes exported from `cad/src/product_model.py`, captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Each raw render was looked at once. No commit or push; `trl` unchanged.
+
+- Views: `media/render-hero.png`, `media/render-exploded.png` (the two views in `RENDER_VIEWS`).
+- Re-render: hero and exploded, twice each. The first renders showed dark streaks across the heel pod lid face; they came from the four 1 mm countersink cones and the 0.5 to 0.3 mm lid face fillet, features too small for the edge bevel and 0.05 mm vertex merge in `.kit/photoreal.py`. In `cad/src/product_model.py` the fillet is removed (the first re-render, which still streaked), then the countersinks are filled and the M2 screws drawn as flush heads 0.15 mm proud (the second re-render, clean). Appearance only; `model.py` keeps the countersunk holes and screws. New appearance deviation, Proposed, awaiting Amish; recommendation: accept as render only.
+- Kit action (not edited here): the same merge and bevel limits put faint streaks on small features in other repos; lower the merge distance or skip it for small parts.
+- Appearance deviations already logged (decisions 6, 8 and 10): 8 degree toe-up tilt; sensor-site rings, perforations, grip ribs, bezel recess and cadence mark; clay shoe, foot and lower leg. Unchanged.
+- `python3 .kit/image_qc.py`: 4 images, 0 problems. `python3 .kit/render.py --check`: no FAIL, and the missing render-hero warning is gone.
+- The "Stale media" note of the 2026-10-01 session is removed; this work resolves it.
